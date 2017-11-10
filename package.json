@@ -1,0 +1,21 @@
+{
+    "name": "livchat-sample-visitor-chat-widget",
+    "version": "0.0.1",
+    "description": "This project demonstrates how to build a own chat widget using LiveChat visitor JavaScript SDK",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.15.4",
+      "@livechat/livechat-visitor-sdk": "0.28.1"
+    },
+    "repository": {
+      "url": "https://glitch.com/edit/#!/welcome-project"
+    },
+    "license": "MIT",
+    "keywords": [
+      "glitch",
+      "livechat"
+    ]
+  }
