@@ -28,9 +28,14 @@ const queueMessage = document.getElementById('queue-message')
 const queueTime = document.getElementById('queue-time')
 const queueNumber = document.getElementById('queue-number')
 const typingIndicator = document.getElementById('typing-indicator')
-const rateGood = document.getElementById('rate-good')
-const rateBad = document.getElementById('rate-bad')
-const rateChat = document.getElementById('rate-chat')
+const rate = document.getElementById('rate')
+const headerTitle = document.getElementById('header-title')
+const overlayClose = document.getElementById('overlay-close')
+const overlay = document.getElementById('overlay')
+
+// const rateGood = document.getElementById('rate-good')
+// const rateBad = document.getElementById('rate-bad')
+// const rateChat = document.getElementById('rate-chat')
 
 // Agents array, 'is visitor chatting' flag
 
@@ -114,11 +119,11 @@ const showPrechat = () => {
 const hidePrechat = () => prechatForm.classList.add('hide')
 
 const showRateChat = () => {
-  rateChat.classList.remove('hide')
+  //rateChat.classList.remove('hide')
 }
 
 const hideRateChat = () => {
-  rateChat.classList.add('hide')
+  //rateChat.classList.add('hide')
 }
 
 // New message callback handler - detect author, append message
@@ -244,11 +249,21 @@ setDataButton.onclick = () => {
   hidePrechat()
 }
 
-rateGood.onclick = () => {
-  console.log('click')
-  sdk.rateChat({ rate: 'good' })
-}
+// rateGood.onclick = () => {
+//   console.log('click')
+//   sdk.rateChat({ rate: 'good' })
+// }
 
-rateBad.onclick = () => {
-  sdk.rateChat({ rate: 'bad' })
-}
+// rateBad.onclick = () => {
+//   sdk.rateChat({ rate: 'bad' })
+// }
+
+/** DRAGOOOONS */
+
+overlayClose.addEventListener('click', () => {
+  overlay.classList.add('hide');
+});
+
+rate.addEventListener('click', () => {
+  overlay.classList.remove('hide');
+})
