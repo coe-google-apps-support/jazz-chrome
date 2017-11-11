@@ -1,0 +1,84 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LiveChat visitor SDK example</title>
+    <meta name="description" content="Example usage of LiveChat visitor SDK">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="livechat-visitor-sdk.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+    <div id="content">
+        <header>
+            <div class="inner-container">
+                <h1>
+                    LiveChat
+                    <br>Visitor SDK
+                </h1>
+                <h2>
+                    Example chat widget implementation
+                </h2>
+            </div>
+        </header>
+        <div id="content-text" class="inner-container">
+            <p>
+                LiveChat Visitor JS SDK allows you to perform a chat via LiveChat as a visitor using JavaScript.
+                <br /> You can use this to create your own chat widget.
+            </p>
+            <div id="content-image">
+                <img src="https://developers.livechatinc.com/wp-content/themes/livechat-developers/img/develop-for-visitors.svg">
+            </div>
+
+            <h3>
+                Resources:
+            </h3>
+            <ul>
+                <li>
+                    <a href="https://docs.livechatinc.com/visitor-sdk" target="_blank">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://developers.livechatinc.com/blog/livechat-visitor-sdk/" target="_blank">LiveChat Visitor SDK blog post</a>
+                </li>
+                <li>
+                    <a href="https://www.npmjs.com/package/@livechat/livechat-visitor-sdk" target="_blank">Npm package</a>
+                </li>
+                <li>
+                    <a href="https://github.com/livechat/chat-window-react-native-example" target="blank">Sample React Native implementation</a>
+                </li>
+                <li>
+                    <a href="https://developers.livechatinc.com/" target="_blank">LiveChat for Developers</a>
+                </li>
+            </ul>
+            <h3>
+                About LiveChat
+            </h3>
+            <p>
+                LiveChat is a customer service software used by businesses to communicate with customers browsing their website. They see
+                the product as a simple chat window placed on the website. The business owner and his agents, on the other
+                hand, have access to the application designed for communication and customers service. LiveChat product can
+                be accessed directly from the browser or using the dedicated application.
+            </p>
+
+        </div>
+    </div>
+    <div style="background-color: transparent; border: 0px; bottom: 32px; height: 600px; overflow: hidden; position: fixed; right: 32px; visibility: visible; width: 400px; z-index: 2147483639; opacity: 1;">
+        <iframe allowtransparency="true" frameborder="0" scrolling="no" src="livechat.html" style="background: none; border: 0px; bottom: 0px; float: none; height: 100%; left: 0px; margin: 0px; padding: 0px; position: absolute; right: 0px; top: 0px; width: 100%;"></iframe>
+    </div>
+</body>
+
+</html>
