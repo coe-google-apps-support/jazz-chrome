@@ -118,14 +118,6 @@ const showPrechat = () => {
 
 const hidePrechat = () => prechatForm.classList.add('hide')
 
-const showRateChat = () => {
-  //rateChat.classList.remove('hide')
-}
-
-const hideRateChat = () => {
-  //rateChat.classList.add('hide')
-}
-
 // New message callback handler - detect author, append message
 
 sdk.on('new_message', (data) => {
@@ -165,7 +157,6 @@ sdk.on('connection_status_changed', (data) => {
 sdk.on('chat_ended', (data) => {
   appendMessage('Chat is closed', 'system')
   disableInput('Chat is closed')
-  hideRateChat()
 })
 
 // Chat started callback handler - set chatting flag, hide prechat form
@@ -174,7 +165,6 @@ sdk.on('chat_started', () => {
   chatting = true
   hidePrechat()
   hideQueueMessage()
-  showRateChat()
 })
 
 // Agent changed callback handler - add agent to agent's array
@@ -265,17 +255,6 @@ setDataButton.onclick = () => {
   prechatEmailInput.disabled = true
   hidePrechat()
 }
-
-// rateGood.onclick = () => {
-//   console.log('click')
-//   sdk.rateChat({ rate: 'good' })
-// }
-
-// rateBad.onclick = () => {
-//   sdk.rateChat({ rate: 'bad' })
-// }
-
-/** DRAGOOOONS */
 
 overlayClose.addEventListener('click', () => {
   overlay.classList.add('hide');
