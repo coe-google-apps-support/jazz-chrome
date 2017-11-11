@@ -1,6 +1,6 @@
 {
-    "name": "scriptTagContext.js demo",
-    "description": "Shows that RequireJS and JSONP work out of the box with scriptTagContext.js",
+    "name": "VIP Chat",
+    "description": "Start chatting with an IT professional now.",
     "version": "1",
     "manifest_version": 2,
     "browser_action": {
@@ -9,10 +9,14 @@
     },
     "permissions": [
     ],
+    "content_scripts": [
+        {
+          "matches": ["*://*/*"],
+          "js": ["src/extension/init.js"]
+        }
+      ], 
     "web_accessible_resources": [
-        "src/demo-files/require.js",
-        "src/demo-files/jquery.js",
-        "src/demo-files/livechat.js"
+        "src/app/livechat.html"
     ],
     "content_security_policy": "script-src 'self'; object-src 'self'"
 }
