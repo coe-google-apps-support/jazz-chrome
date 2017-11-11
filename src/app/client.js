@@ -33,10 +33,6 @@ const headerTitle = document.getElementById('header-title')
 const overlayClose = document.getElementById('overlay-close')
 const overlay = document.getElementById('overlay')
 
-// const rateGood = document.getElementById('rate-good')
-// const rateBad = document.getElementById('rate-bad')
-// const rateChat = document.getElementById('rate-chat')
-
 // Agents array, 'is visitor chatting' flag
 
 const agents = []
@@ -114,6 +110,10 @@ const showPrechat = () => {
   prechatForm.classList.remove('hide')
 }
 
+const writeWelcomeMessage = () => {
+  appendMessage('Welcome! How can we assist you today?', 'system')
+}
+
 // hide prechat
 
 const hidePrechat = () => prechatForm.classList.add('hide')
@@ -148,7 +148,7 @@ sdk.on('connection_status_changed', (data) => {
     enableInput()
     connectionMessage.classList.add('hide')
     if (!chatting) {
-      setTimeout(showPrechat, 1000)
+      setTimeout(showPrechat, 100)      
     }
   } else {
     disableInput('Disconnected')
@@ -260,6 +260,7 @@ setDataButton.onclick = () => {
   prechatNameInput.disabled = true
   prechatEmailInput.disabled = true
   hidePrechat()
+  writeWelcomeMessage()
 }
 
 overlayClose.addEventListener('click', () => {
