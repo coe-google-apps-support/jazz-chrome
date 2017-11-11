@@ -183,6 +183,10 @@ button:hover {
     vertical-align: middle;
 }
 
+.rate-button.hide {
+    display: none;
+}
+
 #minimize {
     color: #fff;
     padding: 0;

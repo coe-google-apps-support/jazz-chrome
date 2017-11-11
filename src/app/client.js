@@ -127,13 +127,15 @@ const hidePrechat = () => prechatForm.classList.add('hide')
 const setAgent = (agent) => {
   headerTitle.innerHTML = agent.name
   feedbackName.innerHTML = agent.name
-
+  
   if (!agent.avatarUrl.startsWith('https://') && !agent.avatarUrl.startsWith('http://')) {
     feedbackAvatar.src = `https://${agent.avatarUrl}`
   }
   else {
     feedbackAvatar.src = agent.avatarUrl
   }
+
+  rate.classList.remove('hide');
 }
 
 // New message callback handler - detect author, append message
