@@ -3,7 +3,7 @@ let maxStyle =
 background-color: transparent; 
 border: 0px; 
 bottom: 32px; 
-height: 600px; 
+height: 800px; 
 overflow: hidden; 
 position: fixed; 
 right: 32px; 
