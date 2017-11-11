@@ -1,0 +1,18 @@
+{
+    "name": "scriptTagContext.js demo",
+    "description": "Shows that RequireJS and JSONP work out of the box with scriptTagContext.js",
+    "version": "1",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": "img/icon-34.png"
+    },
+    "permissions": [
+    ],
+    "web_accessible_resources": [
+        "src/demo-files/require.js",
+        "src/demo-files/jquery.js",
+        "src/demo-files/livechat.js"
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self'"
+}
