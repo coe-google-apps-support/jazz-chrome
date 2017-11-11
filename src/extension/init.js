@@ -3,7 +3,7 @@ let maxStyle =
 background-color: transparent; 
 border: 0px; 
 bottom: 32px; 
-height: 800px; 
+height: 700px; 
 overflow: hidden; 
 position: fixed; 
 right: 32px; 
@@ -12,20 +12,7 @@ width: 400px;
 z-index: 2147483639; 
 opacity: 1;
 `
-let minStyle = 
-`
-background-color: transparent; 
-border: 0px; 
-bottom: 32px; 
-height: 100px;
-width: 100px;
-overflow: hidden; 
-position: fixed; 
-right: 32px; 
-visibility: visible; 
-z-index: 2147483639; 
-opacity: 1;
-`
+
 let iframeStyle = 
 `
 width: 100%;
@@ -58,9 +45,13 @@ window.addEventListener('message', (event) => {
     if (event.origin !== host) return;
 
     if (event.data.type === 'VC_MINIMIZE') {
-        container.setAttribute('style', minStyle);
+        setTimeout(() => {
+            container.style.width = '100px';
+            container.style.height = '100px';
+        }, 200)        
     }
     else if (event.data.type === 'VC_MAXIMIZE') {
-        container.setAttribute('style', maxStyle);
+        container.style.width = '400px';
+        container.style.height = '700px';
     }
 });
