@@ -546,6 +546,10 @@ button:hover {
     font-weight: 400;
 }
 
+.buttonGroup__button.selected {
+    background-color: aliceblue;
+}
+
 .buttonGroup button:first-of-type {
     border-bottom-left-radius: .5rem;
     border-top-left-radius: .5rem;

@@ -29,10 +29,15 @@ const queueTime = document.getElementById('queue-time')
 const queueNumber = document.getElementById('queue-number')
 const typingIndicator = document.getElementById('typing-indicator')
 const rate = document.getElementById('rate')
+const rateGood = document.getElementById('rate-good')
+const rateBad = document.getElementById('rate-bad')
+const rateComment = document.getElementById('rate-comment')
+const rateSubmit = document.getElementById('rate-submit')
 const headerTitle = document.getElementById('header-title')
 const overlayClose = document.getElementById('overlay-close')
 const overlay = document.getElementById('overlay')
-
+const feedbackName = document.getElementById('feedback-agent-name')
+const feedbackAvatar = document.getElementById('feedback-agent-avatar')
 // Agents array, 'is visitor chatting' flag
 
 const agents = []
@@ -120,7 +125,15 @@ const hidePrechat = () => prechatForm.classList.add('hide')
 
 // Set the active agent
 const setAgent = (agent) => {
-  headerTitle.innerHTML = agent.name;
+  headerTitle.innerHTML = agent.name
+  feedbackName.innerHTML = agent.name
+
+  if (!agent.avatarUrl.startsWith('https://') && !agent.avatarUrl.startsWith('http://')) {
+    feedbackAvatar.src = `https://${agent.avatarUrl}`
+  }
+  else {
+    feedbackAvatar.src = agent.avatarUrl
+  }
 }
 
 // New message callback handler - detect author, append message
@@ -265,8 +278,39 @@ setDataButton.onclick = () => {
 
 overlayClose.addEventListener('click', () => {
   overlay.classList.add('hide');
-});
+})
 
 rate.addEventListener('click', () => {
   overlay.classList.remove('hide');
 })
+
+rateGood.addEventListener('click', () => {
+  rateGood.classList.toggle('selected');
+  rateBad.classList.remove('selected');
+});
+
+rateBad.addEventListener('click', () => {
+  rateBad.classList.toggle('selected');
+  rateGood.classList.remove('selected');
+});
+
+rateSubmit.addEventListener('click', () => {
+  let rating
+  if (rateGood.classList.contains('selected')) {
+    rating = 'good'
+  }
+  else if (rateBad.classList.contains('selected')) {
+    rating = 'bad'
+  }
+  else {
+    // Close the rating and don't submit
+    overlay.classList.add('hide')
+    return;
+  }
+
+  sdk.rateChat({
+    rate: rating,
+    comment: rateComment.value
+  })
+  overlay.classList.add('hide')
+});

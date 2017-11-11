@@ -35,8 +35,8 @@
                         </a>
                     </div>
                     <div class="rating__lastAgent lastAgent">
-                        <img class="lastAgent__avatar" src="http://livechat.s3.amazonaws.com/8413431/avatars/7d77ad979c5fcb41d80358bb92778fa6.jpeg">
-                        <div class="lastAgent__name">Wojciech</div>
+                        <img id="feedback-agent-avatar" class="lastAgent__avatar" src="http://livechat.s3.amazonaws.com/8413431/avatars/7d77ad979c5fcb41d80358bb92778fa6.jpeg">
+                        <div id="feedback-agent-name" class="lastAgent__name">Wojciech</div>
                     </div>
                     <p class="modal__textContent">Your feedback is important to us. How would you rate my support? What went wrong and what did you like?
                     </p>
@@ -62,9 +62,9 @@
                             <div class="rating__rateText">Rate bad</div>
                         </button>
                     </div>
-                    <textarea class="rating__comment" maxlength="1001" placeholder="Optional comment..." rows="3"></textarea>
+                    <textarea id="rate-comment" class="rating__comment" maxlength="1001" placeholder="Optional comment..." rows="3"></textarea>
                 </div>
-                <button class="modal__submitButton" type="submit">Submit rating</button>
+                <button id="rate-submit" class="modal__submitButton" type="submit">Submit rating</button>
             </div>
         </div>
     </div>
