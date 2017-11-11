@@ -219,16 +219,33 @@ const sendMessage = () => {
 
 // Maximize / minimize chat widget
 
-const toggleMinimized = () => {
-  liveChatWindow.classList.toggle('minimized');
-  liveChatWindowMinimized.classList.toggle('minimized');
+const minimize = () => {
+  liveChatWindow.classList.add('minimized')
+  liveChatWindowMinimized.classList.add('minimized')
+
+  let data = {
+    type: 'VC_MINIMIZE',
+    content: 'The livechat window has been minimized.'
+  }
+  window.parent.postMessage(data, '*')
+}
+
+const maximize = () => {
+  liveChatWindow.classList.remove('minimized')
+  liveChatWindowMinimized.classList.remove('minimized')
+
+  let data = {
+    type: 'VC_MAXIMIZE',
+    content: 'The livechat window has been maximized.'
+  }
+  window.parent.postMessage(data, '*')
 }
 
 sendButton.onclick = sendMessage
 
-minimizeButton.onclick = toggleMinimized
+minimizeButton.onclick = minimize
 
-liveChatWindowMinimized.onclick = toggleMinimized
+liveChatWindowMinimized.onclick = maximize
 
 input.onkeydown = (event) => {
   // send message if enter was pressed

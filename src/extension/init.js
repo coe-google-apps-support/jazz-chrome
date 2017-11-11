@@ -1,4 +1,4 @@
-let containerStyle = 
+let maxStyle = 
 `
 background-color: transparent; 
 border: 0px; 
@@ -12,31 +12,55 @@ width: 400px;
 z-index: 2147483639; 
 opacity: 1;
 `
+let minStyle = 
+`
+background-color: transparent; 
+border: 0px; 
+bottom: 32px; 
+height: 100px;
+width: 100px;
+overflow: hidden; 
+position: fixed; 
+right: 32px; 
+visibility: visible; 
+z-index: 2147483639; 
+opacity: 1;
+`
 let iframeStyle = 
 `
-background: none; 
-border: 0px; 
-bottom: 0px; 
-float: none; 
-height: 100%; 
-left: 0px; 
-margin: 0px; 
-padding: 0px; 
+width: 100%;
+height: 100%;
 position: absolute; 
 right: 0px; 
 top: 0px; 
-width: 100%;
+bottom: 0px;
+left: 0px;
 `;
 
 let container = document.createElement('div');
-container.style = containerStyle;
+container.style = maxStyle;
 
 let iframe = document.createElement('iframe');
 iframe.setAttribute('allowTransparency', 'true');
 iframe.setAttribute('frameborder', 0);
+iframe.setAttribute('marginheight', '24px');
+iframe.setAttribute('marginwidth', '24px');
 iframe.setAttribute('scrolling', 'no');
 iframe.setAttribute('src', chrome.extension.getURL('src/app/livechat.html'));
 iframe.setAttribute('style', iframeStyle);
 container.appendChild(iframe);
 document.body.appendChild(container);
-console.log('done');
+
+let hostRegExp = /chrome-extension:\/\/\w*/;
+let host = chrome.extension.getURL('src/app/livechat.html').match(hostRegExp)[0];
+
+window.addEventListener('message', (event) => {
+    if (event.origin !== host) return;
+
+    if (event.data.type === 'VC_MINIMIZE') {
+        container.setAttribute('style', minStyle);
+    }
+    else if (event.data.type === 'VC_MAXIMIZE') {
+        container.setAttribute('style', maxStyle);
+    }
+});
