@@ -36,8 +36,6 @@ iframe.setAttribute('marginwidth', '24px');
 iframe.setAttribute('scrolling', 'no');
 iframe.setAttribute('src', chrome.extension.getURL('src/app/livechat.html'));
 iframe.setAttribute('style', iframeStyle);
-container.appendChild(iframe);
-document.body.appendChild(container);
 
 let hostRegExp = /chrome-extension:\/\/\w*/;
 let host = chrome.extension.getURL('src/app/livechat.html').match(hostRegExp)[0];
@@ -55,4 +53,15 @@ window.addEventListener('message', (event) => {
         container.style.width = '400px';
         container.style.height = '700px';
     }
+});
+
+chrome.storage.sync.get('VC_SHOWN', function(result) {
+    if (result.VC_SHOWN) {
+        container.style.display = '';
+    }
+    else {
+        container.style.display = 'none';
+    }
+    container.appendChild(iframe);
+    document.body.appendChild(container);
 });
