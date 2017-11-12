@@ -4,7 +4,9 @@
   "description": "Instantly connect with IT support.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "node build-for-docker.js",
+    "deploy": "gas push ./build/livechat-build.html",
+    "link": "gas link 1v4Kxg87XihM-r_2CttFQgkW8bT3xb-INui1_aX9d7p760rjNMhZ9TTNB"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,6 @@
   },
   "homepage": "https://github.com/coe-google-apps-support/livechat-visitors-example#readme",
   "dependencies": {
-    "web-webpack-plugin": "^1.10.0",
-    "webpack": "^3.8.1"
+    "ncp": "^2.0.0"
   }
 }
