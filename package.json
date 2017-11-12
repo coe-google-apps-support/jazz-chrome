@@ -1,0 +1,29 @@
+{
+  "name": "vip-chat",
+  "version": "1.0.0",
+  "description": "Instantly connect with IT support.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coe-google-apps-support/livechat-visitors-example.git"
+  },
+  "keywords": [
+    "livechat",
+    "extension",
+    "ios",
+    "android"
+  ],
+  "author": "Jared Rewerts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coe-google-apps-support/livechat-visitors-example/issues"
+  },
+  "homepage": "https://github.com/coe-google-apps-support/livechat-visitors-example#readme",
+  "dependencies": {
+    "web-webpack-plugin": "^1.10.0",
+    "webpack": "^3.8.1"
+  }
+}
