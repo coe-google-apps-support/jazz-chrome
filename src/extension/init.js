@@ -26,6 +26,7 @@ left: 0px;
 
 let container = document.createElement('div');
 container.style = maxStyle;
+container.id = 'vip-chat-container';
 
 let iframe = document.createElement('iframe');
 iframe.setAttribute('allowTransparency', 'true');
