@@ -10,6 +10,20 @@ const sdk = window.LivechatVisitorSDK.init({
   group: GROUP,
 })
 
+// Used to swap in variables for template strings. ${0} would access the 0th var.
+
+function template(strings, ...keys) {
+  return (function(...values) {
+    var dict = values[values.length - 1] || {};
+    var result = [strings[0]];
+    keys.forEach(function(key, i) {
+      var value = Number.isInteger(key) ? values[key] : dict[key];
+      result.push(value, strings[i + 1]);
+    });
+    return result.join('');
+  });
+}
+
 const goodRateMessage = 
 `
 <div class="rating-tile">
@@ -34,6 +48,17 @@ const goodRateMessage =
           </g>
       </svg>
       <div>You rated this chat as good.</div>
+  </div>
+</div>
+`
+
+const newAgentMessage = 
+template`
+<div class="agent-message">
+  <img src="${0}">
+  <div>
+    <div class="agent-name">${1}</div>
+    <div class="agent-role">${2}</div>
   </div>
 </div>
 `
@@ -81,7 +106,7 @@ const appendMessage = (text, authorType, authorId) => {
   if (findAgentById(authorId)) {
     const agent = findAgentById(authorId)
     const avatarImage = document.createElement('img')
-    avatarImage.src = `https://${agent.avatarUrl}`
+    avatarImage.src = agent.avatarUrl;
     avatarImage.classList.add('agent-avatar')
     messageDivContainer.append(avatarImage)
   }
@@ -100,7 +125,17 @@ const appendRating = () => {
   messageDivContainer.innerHTML = goodRateMessage;
   messageList.appendChild(messageDivContainer)
   messageList.scrollTop = messageList.scrollHeight
-};
+}
+
+const appendAgent = (agent) => {
+  console.log(agent);
+  const messageDivContainer = document.createElement('div')
+  messageDivContainer.classList.add('message-container', 'system')
+
+  messageDivContainer.innerHTML = newAgentMessage(agent.avatarUrl, agent.name, agent.jobTitle);
+  messageList.appendChild(messageDivContainer)
+  messageList.scrollTop = messageList.scrollHeight
+}
 
 // show bar with 'Agent is typing' info 
 
@@ -153,7 +188,7 @@ const showPrechat = () => {
 }
 
 const writeWelcomeMessage = () => {
-  appendMessage('Welcome! How can we assist you today?', 'system')
+  appendMessage('Welcome! To connect with an agent, type your problem into the text area below.', 'system')
 }
 
 // hide prechat
@@ -162,17 +197,20 @@ const hidePrechat = () => prechatForm.classList.add('hide')
 
 // Set the active agent
 const setAgent = (agent) => {
-  headerTitle.innerHTML = agent.name
-  feedbackName.innerHTML = agent.name
-  
   if (!agent.avatarUrl.startsWith('https://') && !agent.avatarUrl.startsWith('http://')) {
-    feedbackAvatar.src = `https://${agent.avatarUrl}`
-  }
-  else {
-    feedbackAvatar.src = agent.avatarUrl
+    agent.avatarUrl = 'https://' + agent.avatarUrl;
+    console.log('added proto')
   }
 
-  rate.classList.remove('hide');
+  console.log(`Looking for ${agent.avatarUrl}`);
+
+  headerTitle.innerHTML = agent.name
+  feedbackName.innerHTML = agent.name
+  feedbackAvatar.src = agent.avatarUrl
+
+  appendMessage('Now connected with', 'system');
+  appendAgent(agent)
+  rate.classList.remove('hide')
 }
 
 // Use sendMessage method
@@ -273,7 +311,7 @@ rateSubmit.addEventListener('click', () => {
     comment: rateComment.value
   })
   overlay.classList.add('hide')
-  appendRating();
+  //appendRating();
 });
 
 // ***************************************** //

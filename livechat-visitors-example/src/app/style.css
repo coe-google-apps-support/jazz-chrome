@@ -297,6 +297,37 @@ button:hover {
     overflow-wrap: break-word;
 }
 
+.agent-message {
+    background: #fff;
+    border-radius: 1.4em;
+    display: flex;
+    flex-direction: row;
+}
+
+.agent-message > img {
+    display: block;
+    margin: 1em;
+    border-radius: 50%;
+    width: 4.75rem;
+    height: 4.75rem;
+}
+
+.agent-message > div {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 1em;
+}
+
+.agent-role {
+    color: #000;
+}
+
+.agent-name {
+    font-size: 1.2em;
+    color: #000;
+}
+
 #footer {
     display: flex;
     background-color: #fff;
