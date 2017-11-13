@@ -10,6 +10,8 @@ const sdk = window.LivechatVisitorSDK.init({
   group: GROUP,
 })
 
+const FAIL_WAIT = 5000;
+
 // Used to swap in variables for template strings. ${0} would access the 0th var.
 
 function template(strings, ...keys) {
@@ -65,7 +67,7 @@ template`
 
 const newVisitorMessage = 
 template`
-<div class="message">
+<div id="${1}" class="message">
   <div>${0}</div>
 </div>
 <div class="error">Failed to send.</div>
@@ -243,11 +245,22 @@ const setAgent = (agent) => {
 
 const sendMessage = () => {
   const text = input.value
-  sdk.sendMessage({
-    customId: String(Math.random()),
-    text: text,
-  })
+  const customId = String(Math.random())
+  sdk.sendMessage({customId, text})
   input.value = ''
+
+  newVisitorMessage(text, customId);
+  setTimeout(failMessage.bind(this, customId), FAIL_WAIT);
+}
+
+const failMessage = (messageId) => {
+  const message = document.getElementById(messageId)
+
+  if (message.classList.contains('unconfirmed')) {
+    const container = message.parentElement
+    const error = container.getElementsByClassName('error')
+    error.classList.add('failed');
+  }
 }
 
 // Maximize / minimize chat widget

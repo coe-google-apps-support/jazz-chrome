@@ -261,6 +261,20 @@ button:hover {
     max-width: 200px;
 }
 
+.message.unconfirmed {
+    background-color: #b2bbc6;
+}
+
+.message.unconfirmed + .error.failed {
+    font-size: 0.8em;
+    color: red;
+    display: block;
+}
+
+.message + .error {
+    display: none;
+}
+
 .message-container.agent {
     align-self: flex-start;
 }
