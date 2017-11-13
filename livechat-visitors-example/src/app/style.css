@@ -142,6 +142,7 @@ button:hover {
     border-radius: 0.5rem;
     overflow: hidden;
     opacity: 1;
+    font-size: 1.5em;
 }
 
 #livechat-minimized {
@@ -283,7 +284,7 @@ button:hover {
 }
 
 .agent-avatar {
-    width: 2.4em;
+    width: 2.8em;
     height: auto;
     border-radius: 50%;
     display: block;
@@ -298,8 +299,18 @@ button:hover {
 
 #send-button {
     background-color: #fff;
-    color: #000000;
+    color: #3e7ce4;
     font-size: 1em;
+}
+
+/* This rule highlights the send button when there is text in it. */
+
+textarea:invalid + #send-button {
+    color: #b2bbc6;
+}
+
+#send-button svg {
+    fill: currentColor;
 }
 
 #offline-message {
@@ -398,17 +409,6 @@ button:hover {
     display: none;
 }
 
-/* @media (max-width: 600px) {
-    #livechat {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-    }
-} */
-
 /** Rating Overlay */
 
 .overlay {
@@ -417,7 +417,6 @@ button:hover {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,.6);
-    /* border-radius: .5rem; */
     z-index: 1000;
 }
 
