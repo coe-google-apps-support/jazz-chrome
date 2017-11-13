@@ -16,10 +16,21 @@
     ],
     "content_scripts": [
         {
-          "matches": ["http://*/*", "https://*/*"],
-          "js": ["src/extension/inject.js"]
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "src/extension/inject.js"
+            ]
         }
-      ], 
+    ],
+    "background": {
+        "scripts": [
+            "src/extension/background.js"
+        ],
+        "persistent": false
+    },
     "web_accessible_resources": [
         "src/app/livechat.html",
         "src/extension/tracking.js"
