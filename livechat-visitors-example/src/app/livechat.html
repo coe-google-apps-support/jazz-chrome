@@ -11,139 +11,142 @@
     <link rel="stylesheet" href="style.css?_inline">
     <link rel="stylesheet" href="mobile.css?_inline">
     <script type="text/javascript" src="livechat-visitor-sdk.min.js?_inline"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
+
 <body style="background:transparent;">
-<div id="livechat-minimized" class="minimized">
-    <svg fill="#fff" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"
-        />
-        <path d="M0 0h24v24H0z" fill="none" />
-    </svg>
-</div>
-<div id="livechat" class="minimized">
-    <!-- HERE BE DRAGONS -->
-    <div id="overlay" class="overlay hide">
-        <div class="modal">
-            <div class="modal__rating rating">
-                <div class="rating__innerContainer">
-                    <div class="modal__row">
-                        <a id="overlay-close" class="modal__closeIcon" href="#">
-                            <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                                <path d="M0 0h24v24H0z" fill="none" />
-                            </svg>
-                        </a>
+    <div id="livechat-minimized" class="minimized">
+        <svg fill="#fff" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"
+            />
+            <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+    </div>
+    <div id="livechat" class="minimized">
+        <!-- HERE BE DRAGONS -->
+        <div id="overlay" class="overlay hide">
+            <div class="modal">
+                <div class="modal__rating rating">
+                    <div class="rating__innerContainer">
+                        <div class="modal__row">
+                            <a id="overlay-close" class="modal__closeIcon" href="#">
+                                <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="rate-agent-card" class="rating__lastAgent lastAgent">
+                            <img id="feedback-agent-avatar" class="lastAgent__avatar">
+                            <div id="feedback-agent-name" class="lastAgent__name"></div>
+                        </div>
+                        <p class="modal__textContent">Your feedback is important to us. How would you rate my support? What went wrong and what did you
+                            like?
+                        </p>
+                        <div class="rating__buttonGroup buttonGroup">
+                            <button id="rate-good" class="buttonGroup__button">
+                                <svg width="28" height="26" viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path d="M-1-1h30v30H-1z"></path>
+                                        <path d="M.25 25.25h5v-15h-5v15zm27.5-13.75c0-1.375-1.125-2.5-2.5-2.5h-7.887l1.187-5.713.037-.4c0-.512-.212-.987-.55-1.325L16.713.25 8.488 8.488a2.444 2.444 0 0 0-.738 1.762v12.5c0 1.375 1.125 2.5 2.5 2.5H21.5a2.483 2.483 0 0 0 2.3-1.525l3.775-8.813A2.47 2.47 0 0 0 27.75 14v-2.387l-.012-.013.012-.1z"
+                                            fill="#46CA84"></path>
+                                    </g>
+                                </svg>
+                                <div class="rating__rateText">Rate good</div>
+                            </button>
+                            <button id="rate-bad" class="buttonGroup__button">
+                                <svg width="28" height="26" viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path d="M29 27H-1V-3h30z"></path>
+                                        <path d="M27.75.75h-5v15h5v-15zM.25 14.5c0 1.375 1.125 2.5 2.5 2.5h7.888L9.45 22.712l-.037.4c0 .513.212.988.55 1.325l1.325 1.313 8.225-8.238c.462-.45.737-1.075.737-1.762V3.25c0-1.375-1.125-2.5-2.5-2.5H6.5a2.483 2.483 0 0 0-2.3 1.525L.425 11.087A2.47 2.47 0 0 0 .25 12v2.387l.013.013-.013.1z"
+                                            fill="#FE3824"></path>
+                                    </g>
+                                </svg>
+                                <div class="rating__rateText">Rate bad</div>
+                            </button>
+                        </div>
+                        <textarea id="rate-comment" class="rating__comment" maxlength="1001" placeholder="Optional comment..." rows="3"></textarea>
                     </div>
-                    <div id="rate-agent-card" class="rating__lastAgent lastAgent">
-                        <img id="feedback-agent-avatar" class="lastAgent__avatar">
-                        <div id="feedback-agent-name" class="lastAgent__name"></div>
-                    </div>
-                    <p class="modal__textContent">Your feedback is important to us. How would you rate my support? What went wrong and what did you like?
-                    </p>
-                    <div class="rating__buttonGroup buttonGroup">
-                        <button id="rate-good" class="buttonGroup__button">
-                            <svg width="28" height="26" viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
-                                    <path d="M-1-1h30v30H-1z"></path>
-                                    <path d="M.25 25.25h5v-15h-5v15zm27.5-13.75c0-1.375-1.125-2.5-2.5-2.5h-7.887l1.187-5.713.037-.4c0-.512-.212-.987-.55-1.325L16.713.25 8.488 8.488a2.444 2.444 0 0 0-.738 1.762v12.5c0 1.375 1.125 2.5 2.5 2.5H21.5a2.483 2.483 0 0 0 2.3-1.525l3.775-8.813A2.47 2.47 0 0 0 27.75 14v-2.387l-.012-.013.012-.1z"
-                                        fill="#46CA84"></path>
-                                </g>
-                            </svg>
-                            <div class="rating__rateText">Rate good</div>
-                        </button>
-                        <button id="rate-bad" class="buttonGroup__button">
-                            <svg width="28" height="26" viewBox="0 0 28 26" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
-                                    <path d="M29 27H-1V-3h30z"></path>
-                                    <path d="M27.75.75h-5v15h5v-15zM.25 14.5c0 1.375 1.125 2.5 2.5 2.5h7.888L9.45 22.712l-.037.4c0 .513.212.988.55 1.325l1.325 1.313 8.225-8.238c.462-.45.737-1.075.737-1.762V3.25c0-1.375-1.125-2.5-2.5-2.5H6.5a2.483 2.483 0 0 0-2.3 1.525L.425 11.087A2.47 2.47 0 0 0 .25 12v2.387l.013.013-.013.1z"
-                                        fill="#FE3824"></path>
-                                </g>
-                            </svg>
-                            <div class="rating__rateText">Rate bad</div>
-                        </button>
-                    </div>
-                    <textarea id="rate-comment" class="rating__comment" maxlength="1001" placeholder="Optional comment..." rows="3"></textarea>
+                    <button id="rate-submit" class="modal__submitButton" type="submit">Submit rating</button>
                 </div>
-                <button id="rate-submit" class="modal__submitButton" type="submit">Submit rating</button>
             </div>
         </div>
-    </div>
-    <!-- NO MORE DRAGONS -->
-    <div id="livechat-header">
-        <div id="rate-container" class="rate-container">
-            <button id="rate" class="rate-button hide" href="#">
-                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="none" fill-rule="evenodd">
-                        <path d="M12 6c0-.55-.45-1-1-1H5.82l.66-3.18.02-.23c0-.31-.13-.59-.33-.8L5.38 0 .44 4.94C.17 5.21 0 5.59 0 6v6.5c0 .83.67 1.5 1.5 1.5h6.75c.62 0 1.15-.38 1.38-.91l2.26-5.29c.07-.17.11-.36.11-.55V6zm10.5 4h-6.75c-.62 0-1.15.38-1.38.91l-2.26 5.29c-.07.17-.11.36-.11.55V18c0 .55.45 1 1 1h5.18l-.66 3.18-.02.24c0 .31.13.59.33.8l.79.78 4.94-4.94c.27-.27.44-.65.44-1.06v-6.5c0-.83-.67-1.5-1.5-1.5z"
-                            fill="#fff"></path>
-                        <path d="M2-2h24v24H2z"></path>
-                    </g>
+        <!-- NO MORE DRAGONS -->
+        <div id="livechat-header">
+            <div id="rate-container" class="rate-container">
+                <button id="rate" class="rate-button hide" href="#">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" fill-rule="evenodd">
+                            <path d="M12 6c0-.55-.45-1-1-1H5.82l.66-3.18.02-.23c0-.31-.13-.59-.33-.8L5.38 0 .44 4.94C.17 5.21 0 5.59 0 6v6.5c0 .83.67 1.5 1.5 1.5h6.75c.62 0 1.15-.38 1.38-.91l2.26-5.29c.07-.17.11-.36.11-.55V6zm10.5 4h-6.75c-.62 0-1.15.38-1.38.91l-2.26 5.29c-.07.17-.11.36-.11.55V18c0 .55.45 1 1 1h5.18l-.66 3.18-.02.24c0 .31.13.59.33.8l.79.78 4.94-4.94c.27-.27.44-.65.44-1.06v-6.5c0-.83-.67-1.5-1.5-1.5z"
+                                fill="#fff"></path>
+                            <path d="M2-2h24v24H2z"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="header-title">Welcome to VIP Chat!</div>
+
+            <button id="minimize">
+                <svg fill="#fff" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    <path d="M0 0h24v24H0z" fill="none" />
                 </svg>
             </button>
         </div>
-
-        <div id="header-title">Welcome to VIP Chat!</div>
-
-        <button id="minimize">
-            <svg fill="#fff" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-        </button>
-    </div>
-    <div id="queue-message" class="hide">
-        <div class="queue-icon">
-            ⏳
-        </div>
-        <p>
-            You are
-            <span id="queue-number"></span> in the queue. Estimated waiting time:
-            <span id="queue-time"></span> s.
-        </p>
-    </div>
-    <div id="offline-message" class="hide">
-        <div>
-            Our agents are not available right now.
-        </div>
-        <div class="offline-icon">
-            😴
-        </div>
-    </div>
-    <div id="typing-indicator" class="hide">
-        Agent is typing...
-    </div>
-    <div id="message-list">
-        <div id="connection-message">
-            Connecting...
-        </div>
-        <div id="prechat" class="hide">
+        <div id="queue-message" class="hide">
+            <div class="queue-icon">
+                ⏳
+            </div>
             <p>
-                Welcome to VIP Chat! Please fill in the form below.
+                You are
+                <span id="queue-number"></span> in the queue. Estimated waiting time:
+                <span id="queue-time"></span> s.
             </p>
+        </div>
+        <div id="offline-message" class="hide">
             <div>
-                <input placeholder="name" id="prechat_name">
+                Our agents are not available right now.
             </div>
-            <div>
-                <input placeholder="email" id="prechat_email">
-            </div>
-            <div>
-                <button id="set-data-button">
-                    Start the chat
-                </button>
+            <div class="offline-icon">
+                😴
             </div>
         </div>
+        <div id="typing-indicator" class="hide">
+            Agent is typing...
+        </div>
+        <div id="message-list">
+            <div id="connection-message">
+                Connecting...
+            </div>
+            <div id="prechat" class="hide">
+                <p>
+                    Welcome to VIP Chat! Please fill in the form below.
+                </p>
+                <div>
+                    <input placeholder="name" id="prechat_name">
+                </div>
+                <div>
+                    <input placeholder="email" id="prechat_email">
+                </div>
+                <div>
+                    <button id="set-data-button">
+                        Start the chat
+                    </button>
+                </div>
+            </div>            
+        </div>
+        <div id="footer">
+            <textarea required placeholder="Write a message..." id="message-input"></textarea>
+            <button id="send-button">
+                <svg id="send-button-svg" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    <path d="M0 0h24v24H0z" fill="none" />
+                </svg>
+            </button>
+        </div>
+        <script src="client.js?_inline"></script>
     </div>
-    <div id="footer">
-        <textarea required placeholder="Write a message..." id="message-input"></textarea>
-        <button id="send-button">
-            <svg id="send-button-svg" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-        </button>
-    </div>
-    <script src="client.js?_inline"></script>
-</div>
 </body>
+
 </html>

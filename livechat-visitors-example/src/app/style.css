@@ -142,7 +142,6 @@ button:hover {
     border-radius: 0.5rem;
     overflow: hidden;
     opacity: 1;
-    font-size: 1.5em;
 }
 
 #livechat-minimized {
@@ -291,6 +290,13 @@ button:hover {
     margin-right: .5em;
 }
 
+.rating-tile {
+    text-align: center;
+    font-size: 1em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 #footer {
     display: flex;
     background-color: #fff;
@@ -301,6 +307,7 @@ button:hover {
     background-color: #fff;
     color: #3e7ce4;
     font-size: 1em;
+    margin: 0.25em;
 }
 
 /* This rule highlights the send button when there is text in it. */
