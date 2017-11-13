@@ -10,6 +10,34 @@ const sdk = window.LivechatVisitorSDK.init({
   group: GROUP,
 })
 
+const goodRateMessage = 
+`
+<div class="rating-tile">
+  <div>
+      <svg width="71px" height="66px" viewBox="0 0 71 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+          <title>ic_thumb_up_black_24px copy 2</title>
+          <desc>Created with Sketch.</desc>
+          <defs></defs>
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Exit-intent-02b-Copy-26" transform="translate(-1067.000000, -612.000000)">
+                  <g id="Group-2" transform="translate(950.000000, 288.000000)">
+                      <g id="Group-8" transform="translate(42.000000, 324.000000)">
+                          <g id="ic_thumb_up_black_24px-copy-2" transform="translate(75.000000, 0.000000)">
+                              <path d="M5.66666667,60.2121212 L16.5757576,60.2121212 L16.5757576,27.4848485 L5.66666667,27.4848485 L5.66666667,60.2121212 Z M65.6666667,30.2121212 C65.6666667,27.2121212 63.2121212,24.7575758 60.2121212,24.7575758 L43.0030303,24.7575758 L45.5939394,12.2939394 L45.6757576,11.4212121 C45.6757576,10.3030303 45.2121212,9.26666667 44.4757576,8.53030303 L41.5848485,5.66666667 L23.6393939,23.6393939 C22.630303,24.6212121 22.030303,25.9848485 22.030303,27.4848485 L22.030303,54.7575758 C22.030303,57.7575758 24.4848485,60.2121212 27.4848485,60.2121212 L52.030303,60.2121212 C54.2939394,60.2121212 56.230303,58.8484848 57.0484848,56.8848485 L65.2848485,37.6575758 C65.530303,37.030303 65.6666667,36.3757576 65.6666667,35.6666667 L65.6666667,30.4575758 L65.6393939,30.430303 L65.6666667,30.2121212 Z"
+                                  id="Shape-Copy" fill="#46CA84"></path>
+                              <path d="M5.66666667,60.2121212 L16.5757576,60.2121212 L16.5757576,27.4848485 L5.66666667,27.4848485 L5.66666667,60.2121212 Z M5.66666667,65.2121212 C2.90524292,65.2121212 0.666666667,62.973545 0.666666667,60.2121212 L0.666666667,27.4848485 C0.666666667,24.7234247 2.90524292,22.4848485 5.66666667,22.4848485 L16.5757576,22.4848485 C19.3371813,22.4848485 21.5757576,24.7234247 21.5757576,27.4848485 L21.5757576,60.2121212 C21.5757576,62.973545 19.3371813,65.2121212 16.5757576,65.2121212 L5.66666667,65.2121212 Z M65.6666667,30.2121212 C65.6666667,27.2121212 63.2121212,24.7575758 60.2121212,24.7575758 L43.0030303,24.7575758 L45.5939394,12.2939394 L45.6757576,11.4212121 C45.6757576,10.3030303 45.2121212,9.26666667 44.4757576,8.53030303 L41.5848485,5.66666667 L23.6393939,23.6393939 C22.630303,24.6212121 22.030303,25.9848485 22.030303,27.4848485 L22.030303,54.7575758 C22.030303,57.7575758 24.4848485,60.2121212 27.4848485,60.2121212 L52.030303,60.2121212 C54.2939394,60.2121212 56.230303,58.8484848 57.0484848,56.8848485 L65.2848485,37.6575758 C65.530303,37.030303 65.6666667,36.3757576 65.6666667,35.6666667 L65.6666667,30.4575758 L65.6666667,30.2121212 Z M70.6666667,35.6666667 C70.6666667,36.9905734 70.4177452,38.2613832 69.9410624,39.4795725 L61.6638695,58.8079254 C60.0567357,62.6650465 56.2805493,65.2121212 52.030303,65.2121212 L27.4848485,65.2121212 C21.7234247,65.2121212 17.030303,60.5189995 17.030303,54.7575758 L17.030303,27.4848485 C17.030303,24.6578073 18.1595849,21.9949327 20.1011765,20.1065456 L38.0466311,2.13381832 C39.9922805,0.185211931 43.1472522,0.176537942 45.1035868,2.11441657 L48.0112915,4.99476912 C49.696729,6.68020664 50.6757576,8.99135606 50.6757576,11.4212121 C50.6757576,11.5770351 50.6684733,11.732773 50.6539287,11.8879157 L50.5721105,12.7606429 C50.5547631,12.9456824 50.5271122,13.1296108 50.4892866,13.3115717 L49.1493077,19.7575758 L60.2121212,19.7575758 C65.973545,19.7575758 70.6666667,24.4506975 70.6666667,30.2121212 C70.6661637,30.3756756 70.6666667,35.6666667 70.6666667,35.6666667 Z"
+                                  fill="#FFFFFF" fill-rule="nonzero"></path>
+                          </g>
+                      </g>
+                  </g>
+              </g>
+          </g>
+      </svg>
+      <div>You rated this chat as good.</div>
+  </div>
+</div>
+`
+
 // References to DOM elements
 
 const liveChatWindow = document.getElementById('livechat')
@@ -64,6 +92,15 @@ const appendMessage = (text, authorType, authorId) => {
   messageList.appendChild(messageDivContainer)
   messageList.scrollTop = messageList.scrollHeight
 }
+
+const appendRating = () => {
+  const messageDivContainer = document.createElement('div')
+  messageDivContainer.classList.add('message-container', 'system')
+
+  messageDivContainer.innerHTML = goodRateMessage;
+  messageList.appendChild(messageDivContainer)
+  messageList.scrollTop = messageList.scrollHeight
+};
 
 // show bar with 'Agent is typing' info 
 
@@ -137,92 +174,6 @@ const setAgent = (agent) => {
 
   rate.classList.remove('hide');
 }
-
-// New message callback handler - detect author, append message
-
-sdk.on('new_message', (data) => {
-  console.log('new_message')
-  const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
-  appendMessage(data.text, authorType, data.authorId)
-})
-
-sdk.on('new_file', (data) => {
-  console.log('new_file')
-  const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
-  appendMessage(data.url, authorType, data.authorId)
-})
-
-sdk.on('visitor_queued', (queueData) => {
-  console.log('visitor_queued')
-  showQueueMessage(queueData.waitingTime, queueData.numberInQueue)
-})
-
-
-// Connection status changed callback handler - toggle message about connection problems, toggle input
-
-sdk.on('connection_status_changed', (data) => {
-  console.log('connection_status_changed')
-  if (data.status === 'connected') {
-    enableInput()
-    connectionMessage.classList.add('hide')
-    if (!chatting) {
-      setTimeout(showPrechat, 100)      
-    }
-  } else {
-    disableInput('Disconnected')
-    connectionMessage.classList.add('disconnected')
-    connectionMessage.classList.remove('hide')
-  }
-})
-
-// Chat ended callback handler, append system message and disable input
-
-sdk.on('chat_ended', (data) => {
-  console.log('chat_ended')
-  appendMessage('Chat is closed', 'system')
-  disableInput('Chat is closed')
-})
-
-// Chat started callback handler - set chatting flag, hide prechat form
-
-sdk.on('chat_started', () => {
-  console.log('chat_started')
-  chatting = true
-  hidePrechat()
-  hideQueueMessage()
-})
-
-// Agent changed callback handler - add agent to agent's array
-
-sdk.on('agent_changed', (data) => {
-  console.log('agent_changed')
-  agents.push(data)
-  setAgent(data);
-})
-
-// Typing indicator callback handler, show / hide bar
-
-sdk.on('typing_indicator', (data) => {
-  console.log('typing_indicator')
-  if (data.isTyping) {
-    return showTypingIndicator()
-  }
-  hideTypingIndicator()
-})
-
-// Status changed callback handler - show offline message if all agents are offline
-
-sdk.on('status_changed', (data) => {
-  console.log('status_changed')
-  if (data.status !== 'online') {
-    offlineMessage.classList.remove('hide')
-    disableInput('Chat is offline')
-
-  } else {
-    offlineMessage.classList.add('hide')
-    enableInput()
-  }
-})
 
 // Use sendMessage method
 
@@ -322,4 +273,95 @@ rateSubmit.addEventListener('click', () => {
     comment: rateComment.value
   })
   overlay.classList.add('hide')
+  appendRating();
 });
+
+// ***************************************** //
+// ************* SDK Events **************** //
+// ***************************************** //
+
+// New message callback handler - detect author, append message
+
+sdk.on('new_message', (data) => {
+  console.log('new_message')
+  const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
+  appendMessage(data.text, authorType, data.authorId)
+})
+
+sdk.on('new_file', (data) => {
+  console.log('new_file')
+  //const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
+  //appendMessage(data.url, authorType, data.authorId)
+})
+
+sdk.on('visitor_queued', (queueData) => {
+  console.log('visitor_queued')
+  showQueueMessage(queueData.waitingTime, queueData.numberInQueue)
+})
+
+
+// Connection status changed callback handler - toggle message about connection problems, toggle input
+
+sdk.on('connection_status_changed', (data) => {
+  console.log('connection_status_changed')
+  if (data.status === 'connected') {
+    enableInput()
+    connectionMessage.classList.add('hide')
+    if (!chatting) {
+      setTimeout(showPrechat, 100)      
+    }
+  } else {
+    disableInput('Disconnected')
+    connectionMessage.classList.add('disconnected')
+    connectionMessage.classList.remove('hide')
+  }
+})
+
+// Chat ended callback handler, append system message and disable input
+
+sdk.on('chat_ended', (data) => {
+  console.log('chat_ended')
+  appendMessage('Chat is closed', 'system')
+  disableInput('Chat is closed')
+})
+
+// Chat started callback handler - set chatting flag, hide prechat form
+
+sdk.on('chat_started', () => {
+  console.log('chat_started')
+  chatting = true
+  hidePrechat()
+  hideQueueMessage()
+})
+
+// Agent changed callback handler - add agent to agent's array
+
+sdk.on('agent_changed', (data) => {
+  console.log('agent_changed')
+  agents.push(data)
+  setAgent(data);
+})
+
+// Typing indicator callback handler, show / hide bar
+
+sdk.on('typing_indicator', (data) => {
+  console.log('typing_indicator')
+  if (data.isTyping) {
+    return showTypingIndicator()
+  }
+  hideTypingIndicator()
+})
+
+// Status changed callback handler - show offline message if all agents are offline
+
+sdk.on('status_changed', (data) => {
+  console.log('status_changed')
+  if (data.status !== 'online') {
+    offlineMessage.classList.remove('hide')
+    disableInput('Chat is offline')
+
+  } else {
+    offlineMessage.classList.add('hide')
+    enableInput()
+  }
+})
