@@ -9,6 +9,7 @@
     },
     "permissions": [
         "identity",
+        "identity.email",
         "tabs",
         "storage",
         "http://*/*",

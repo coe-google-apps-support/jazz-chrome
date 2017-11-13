@@ -1,5 +1,11 @@
 
-chrome.browserAction.onClicked.addListener(function (tab) {
+chrome.identity.getProfileUserInfo(function(userInfo) {
+    chrome.storage.sync.set({
+        'VC_USER': userInfo
+    });
+})
+
+chrome.browserAction.onClicked.addListener(function (tab) {    
     console.log('Browser Action');
     onShowToggled();
 });
