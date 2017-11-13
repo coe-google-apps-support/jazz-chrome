@@ -52,7 +52,7 @@ const goodRateMessage =
 </div>
 `
 
-const newAgentMessage = 
+const newAgentConnectMessage = 
 template`
 <div class="agent-message">
   <img src="${0}">
@@ -60,6 +60,29 @@ template`
     <div class="agent-name">${1}</div>
     <div class="agent-role">${2}</div>
   </div>
+</div>
+`
+
+const newVisitorMessage = 
+template`
+<div class="message">
+  <div>${0}</div>
+</div>
+<div class="error">Failed to send.</div>
+`
+
+const newSystemMessage = 
+template`
+<div class="message">
+  <div>${0}</div>
+</div>
+`
+
+const newAgentMessage = 
+template`
+<img src="${1}" class="agent-avatar">
+<div class="message">
+  <div>${0}</div>
 </div>
 `
 
@@ -100,20 +123,26 @@ const findAgentById = (agentId) => agents.find((agent) => agent.id === agentId)
 
 // Append message function
 
-const appendMessage = (text, authorType, authorId) => {
+const appendVisitorMessage = (text) => {
   const messageDivContainer = document.createElement('div')
-  messageDivContainer.classList.add('message-container', authorType)
-  if (findAgentById(authorId)) {
-    const agent = findAgentById(authorId)
-    const avatarImage = document.createElement('img')
-    avatarImage.src = agent.avatarUrl;
-    avatarImage.classList.add('agent-avatar')
-    messageDivContainer.append(avatarImage)
-  }
-  const messageDiv = document.createElement('div')
-  messageDiv.classList.add('message')
-  messageDiv.innerHTML = '<div>' + text + '</div>'
-  messageDivContainer.append(messageDiv)
+  messageDivContainer.classList.add('message-container', 'visitor')
+  messageDivContainer.innerHTML = newVisitorMessage(text);
+  messageList.appendChild(messageDivContainer)
+  messageList.scrollTop = messageList.scrollHeight
+}
+
+const appendAgentMessage = (text, agent) => {
+  const messageDivContainer = document.createElement('div')
+  messageDivContainer.classList.add('message-container', 'agent')
+  messageDivContainer.innerHTML = newAgentMessage(text, agent.avatarUrl);
+  messageList.appendChild(messageDivContainer)
+  messageList.scrollTop = messageList.scrollHeight
+}
+
+const appendSystemMessage = (text) => {
+  const messageDivContainer = document.createElement('div')
+  messageDivContainer.classList.add('message-container', 'system')
+  messageDivContainer.innerHTML = newSystemMessage(text);
   messageList.appendChild(messageDivContainer)
   messageList.scrollTop = messageList.scrollHeight
 }
@@ -132,7 +161,7 @@ const appendAgent = (agent) => {
   const messageDivContainer = document.createElement('div')
   messageDivContainer.classList.add('message-container', 'system')
 
-  messageDivContainer.innerHTML = newAgentMessage(agent.avatarUrl, agent.name, agent.jobTitle);
+  messageDivContainer.innerHTML = newAgentConnectMessage(agent.avatarUrl, agent.name, agent.jobTitle);
   messageList.appendChild(messageDivContainer)
   messageList.scrollTop = messageList.scrollHeight
 }
@@ -188,7 +217,7 @@ const showPrechat = () => {
 }
 
 const writeWelcomeMessage = () => {
-  appendMessage('Welcome! To connect with an agent, type your problem into the text area below.', 'system')
+  appendSystemMessage('Welcome! To connect with an agent, type your problem into the text area below.')
 }
 
 // hide prechat
@@ -199,16 +228,13 @@ const hidePrechat = () => prechatForm.classList.add('hide')
 const setAgent = (agent) => {
   if (!agent.avatarUrl.startsWith('https://') && !agent.avatarUrl.startsWith('http://')) {
     agent.avatarUrl = 'https://' + agent.avatarUrl;
-    console.log('added proto')
   }
-
-  console.log(`Looking for ${agent.avatarUrl}`);
 
   headerTitle.innerHTML = agent.name
   feedbackName.innerHTML = agent.name
   feedbackAvatar.src = agent.avatarUrl
 
-  appendMessage('Now connected with', 'system');
+  appendSystemMessage('Now connected with');
   appendAgent(agent)
   rate.classList.remove('hide')
 }
@@ -323,13 +349,17 @@ rateSubmit.addEventListener('click', () => {
 sdk.on('new_message', (data) => {
   console.log('new_message')
   const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
-  appendMessage(data.text, authorType, data.authorId)
+  if (authorType === 'agent') {
+    const agent = findAgentById(data.authorId)
+    appendAgentMessage(data.text, agent)
+  }
+  else {
+    appendVisitorMessage(data.text)
+  }  
 })
 
 sdk.on('new_file', (data) => {
   console.log('new_file')
-  //const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
-  //appendMessage(data.url, authorType, data.authorId)
 })
 
 sdk.on('visitor_queued', (queueData) => {
@@ -359,7 +389,7 @@ sdk.on('connection_status_changed', (data) => {
 
 sdk.on('chat_ended', (data) => {
   console.log('chat_ended')
-  appendMessage('Chat is closed', 'system')
+  appendSystemMessage('Chat is closed')
   disableInput('Chat is closed')
 })
 
