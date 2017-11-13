@@ -141,17 +141,19 @@ const setAgent = (agent) => {
 // New message callback handler - detect author, append message
 
 sdk.on('new_message', (data) => {
-  console.log('data', data)
+  console.log('new_message')
   const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
   appendMessage(data.text, authorType, data.authorId)
 })
 
 sdk.on('new_file', (data) => {
+  console.log('new_file')
   const authorType = data.authorId.indexOf('@') === -1 ? 'visitor' : 'agent'
   appendMessage(data.url, authorType, data.authorId)
 })
 
 sdk.on('visitor_queued', (queueData) => {
+  console.log('visitor_queued')
   showQueueMessage(queueData.waitingTime, queueData.numberInQueue)
 })
 
@@ -159,6 +161,7 @@ sdk.on('visitor_queued', (queueData) => {
 // Connection status changed callback handler - toggle message about connection problems, toggle input
 
 sdk.on('connection_status_changed', (data) => {
+  console.log('connection_status_changed')
   if (data.status === 'connected') {
     enableInput()
     connectionMessage.classList.add('hide')
@@ -175,6 +178,7 @@ sdk.on('connection_status_changed', (data) => {
 // Chat ended callback handler, append system message and disable input
 
 sdk.on('chat_ended', (data) => {
+  console.log('chat_ended')
   appendMessage('Chat is closed', 'system')
   disableInput('Chat is closed')
 })
@@ -182,6 +186,7 @@ sdk.on('chat_ended', (data) => {
 // Chat started callback handler - set chatting flag, hide prechat form
 
 sdk.on('chat_started', () => {
+  console.log('chat_started')
   chatting = true
   hidePrechat()
   hideQueueMessage()
@@ -190,7 +195,7 @@ sdk.on('chat_started', () => {
 // Agent changed callback handler - add agent to agent's array
 
 sdk.on('agent_changed', (data) => {
-  console.log('agent data', data)
+  console.log('agent_changed')
   agents.push(data)
   setAgent(data);
 })
@@ -198,6 +203,7 @@ sdk.on('agent_changed', (data) => {
 // Typing indicator callback handler, show / hide bar
 
 sdk.on('typing_indicator', (data) => {
+  console.log('typing_indicator')
   if (data.isTyping) {
     return showTypingIndicator()
   }
@@ -207,6 +213,7 @@ sdk.on('typing_indicator', (data) => {
 // Status changed callback handler - show offline message if all agents are offline
 
 sdk.on('status_changed', (data) => {
+  console.log('status_changed')
   if (data.status !== 'online') {
     offlineMessage.classList.remove('hide')
     disableInput('Chat is offline')
