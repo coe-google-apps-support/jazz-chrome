@@ -47,7 +47,8 @@ window.__lc.visitor = {
     });
 
 function setVisibleState() {
-    chrome.storage.sync.get('VC_SHOWN', function (result) {
+    chrome.storage.sync.get({'VC_SHOWN': true}, function (result) {
+        console.log(result);
         if (result.VC_SHOWN) {
             console.log('Showing')
             chrome.runtime.sendMessage({ type: 'VC_SHOW' });
