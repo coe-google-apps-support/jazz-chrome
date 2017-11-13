@@ -17,15 +17,12 @@
     "content_scripts": [
         {
           "matches": ["http://*/*", "https://*/*"],
-          "js": ["src/extension/init.js"]
+          "js": ["src/extension/inject.js"]
         }
       ], 
-    "background": {
-        "scripts": ["src/extension/background.js"],
-        "persistent": false
-    },
     "web_accessible_resources": [
-        "src/app/livechat.html"
+        "src/app/livechat.html",
+        "src/extension/tracking.js"
     ],
-    "content_security_policy": "script-src 'self'; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://cdn.livechatinc.com; object-src 'self'"
 }
