@@ -1,4 +1,4 @@
-const tracking = chrome.extension.getURL('src/extension/tracking.js');
+const tracking = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
 
 // Wait until both are populated
 
@@ -29,7 +29,8 @@ chrome.storage.sync.get('VC_USER',
 window.__lc = window.__lc || {};
 window.__lc.license = 9242305;
 window.__lc.mute_csp_errors = true;
-window.__lc.visitor = {    
+window.__lc.visitor = {
+    name: '${value.VC_USER.email}',
     email: '${value.VC_USER.email}'
 };
 (function() {
