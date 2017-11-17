@@ -47,6 +47,8 @@ function applyToTabs(func, filter) {
 function filter(tab) {
     if (!tab.id) return false;
     if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) return false;
+    if (tab.url.startsWith('https://chrome.google.com')) return false;
+    if (tab.url.includes('livechatinc')) return false;
 
     return true
 }
@@ -59,7 +61,8 @@ function show() {
         }, function () {
             chrome.tabs.executeScript(tab.id, {
                 file: 'src/extension/show-vc.js'
-            })
+            });
+            chrome.browserAction.setBadgeText({ text: 'On' });
         });
     }, filter);
 }
@@ -67,12 +70,14 @@ function show() {
 function hide() {
     console.log('hiding tabs');
     applyToTabs(function (tab) {
+        console.log(tab.url);
         chrome.storage.sync.set({
             'VC_SHOWN': false
         }, function () {
             chrome.tabs.executeScript(tab.id, {
                 file: 'src/extension/hide-vc.js'
-            })
+            });
+            chrome.browserAction.setBadgeText({ text: 'Off' });
         });
     }, filter);
 }
