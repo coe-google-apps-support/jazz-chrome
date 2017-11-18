@@ -11,6 +11,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log('Got message?')
     if (request.type === 'VC_HIDE') {
         hide();
     }
@@ -19,6 +20,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 
     return true;
+});
+
+chrome.runtime.onInstalled.addListener(function(details){
+    if(details.reason == "install"){
+        console.log("This is a first install!");
+        inject();
+    }
 });
 
 function onShowToggled() {
@@ -79,5 +87,13 @@ function hide() {
             });
             chrome.browserAction.setBadgeText({ text: 'Off' });
         });
+    }, filter);
+}
+
+function inject() {
+    applyToTabs(function (tab) {
+        chrome.tabs.executeScript(tab.id, {
+            file: 'src/extension/inject.js'
+        })
     }, filter);
 }
