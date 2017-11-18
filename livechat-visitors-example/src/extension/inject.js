@@ -1,18 +1,28 @@
 const tracking = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+console.log('inject.js');
+// If this page already has a chat container, skip everything.
+// Note that a simple return won't work here.
+if (!document.getElementById('livechat-full')) {
+
+
 
 // Wait until both are populated
 
 const observer = new MutationObserver(function (mutations) {
+    let setVisible = false;
     mutations.forEach(function (mutation) {
-        if (!mutation.addedNodes) return;
-
+        if (!mutation.addedNodes) return;        
         for (let i = 0; i < mutation.addedNodes.length; i++) {
             // do things to your newly added nodes here
             let node = mutation.addedNodes[i];
             if (node.id !== 'livechat-full' && node.id !== 'livechat-compact-container') return;
-            setVisibleState();
+            setVisible = true;       
         }
     });
+
+    if (setVisible) {
+        setVisibleState();
+    }
 });
 
 observer.observe(document.body, {
@@ -61,3 +71,4 @@ function setVisibleState() {
     });
 }
 
+}
