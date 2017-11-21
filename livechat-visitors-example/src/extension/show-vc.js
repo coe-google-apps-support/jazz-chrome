@@ -1,24 +1,19 @@
-// const VC_STYLE_ID = 'vc-style-overrides';
+console.log('show-vc')
 
-showVCStyleElement = document.getElementById('vc-style-overrides');
-if (!showVCStyleElement) {
-    showVCStyleElement = document.createElement('style');
-    showVCStyleElement.type = 'text/css';
-    showVCStyleElement.id = 'vc-style-overrides';
-    document.getElementsByTagName('head')[0].appendChild(showVCStyleElement);
-}
-
-showVCStyles =
-    `
-#livechat-full {
-    display:block!important;
-}
-
-#livechat-compact-container {
-    display: block!important;
-}
+showVCText =
+`
+var LC_API = LC_API || {};
+LC_API.open_chat_window();
+LC_API.minimize_chat_window();
 `
 
-console.log('show-vc')
-showVCStyleElement.innerHTML = '';
-showVCStyleElement.innerHTML = showVCStyles;
+vcShowElement = document.getElementById('vc-style-overrides');
+if (vcShowElement) {
+    vcShowElement.parentNode.removeChild(vcShowElement);
+}
+
+vcShowElement = document.createElement('script');
+vcShowElement.type = 'text/javascript';
+vcShowElement.id = 'vc-style-overrides';
+vcShowElement.innerHTML = showVCText;
+document.getElementsByTagName('head')[0].appendChild(vcShowElement);

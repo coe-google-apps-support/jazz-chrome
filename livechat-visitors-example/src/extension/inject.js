@@ -1,5 +1,6 @@
 const tracking = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
 console.log('inject.js');
+
 // If this page already has a chat container, skip everything.
 // Note that a simple return won't work here.
 if (!document.getElementById('livechat-full')) {
@@ -36,6 +37,13 @@ chrome.storage.sync.get('VC_USER',
     function (value) {
         const template =
             `
+var LC_API = LC_API || {};
+
+LC_API.on_before_load = function() {
+    console.log('hiding chat on init')
+    LC_API.hide_chat_window();
+};
+
 window.__lc = window.__lc || {};
 window.__lc.license = 9242305;
 window.__lc.mute_csp_errors = true;
@@ -59,13 +67,10 @@ window.__lc.visitor = {
 
 function setVisibleState() {
     chrome.storage.sync.get({'VC_SHOWN': true}, function (result) {
-        console.log(result);
         if (result.VC_SHOWN) {
-            console.log('Showing')
             chrome.runtime.sendMessage({ type: 'VC_SHOW' });
         }
         else {
-            console.log('Hiding')
             chrome.runtime.sendMessage({ type: 'VC_HIDE' });
         }
     });
