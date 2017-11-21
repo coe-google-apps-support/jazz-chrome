@@ -42,6 +42,7 @@ var LC_API = LC_API || {};
 LC_API.on_before_load = function() {
     console.log('hiding chat on init')
     LC_API.hide_chat_window();
+    LC_API.disable_sounds();
 };
 
 window.__lc = window.__lc || {};
