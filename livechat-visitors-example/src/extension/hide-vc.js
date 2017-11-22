@@ -1,1 +1,0 @@
-document.getElementById('vip-chat-container').style.display = 'none';
