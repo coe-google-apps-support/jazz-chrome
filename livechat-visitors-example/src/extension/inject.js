@@ -5,7 +5,20 @@ console.log('inject.js');
 // Note that a simple return won't work here.
 if (!document.getElementById('livechat-full')) {
 
-
+// Hiding livechat container at beginning
+let vsInitElement = document.createElement('style');
+vsInitElement.type = 'text/css';
+vsInitElement.id = 'vc-initial-style';
+vsInitElement.innerHTML = `
+    #livechat-full {
+        display: none;
+    }
+    
+    #livechat-compact-container {
+        display: none;
+    }
+`;
+document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 
 // Wait until both are populated
 
@@ -41,7 +54,7 @@ var LC_API = LC_API || {};
 
 LC_API.on_before_load = function() {
     console.log('hiding chat on init')
-    LC_API.hide_chat_window();
+    // LC_API.hide_chat_window();
     LC_API.disable_sounds();
 };
 

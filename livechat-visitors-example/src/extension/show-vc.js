@@ -16,3 +16,9 @@ vcShowElement.type = 'text/javascript';
 vcShowElement.id = 'vc-style-overrides';
 vcShowElement.innerHTML = showVCText;
 document.getElementsByTagName('head')[0].appendChild(vcShowElement);
+
+// remove initial "hide chat bubble" code 
+vcHideInitial = document.getElementById('vc-initial-style');
+if (vcHideInitial) {
+    vcHideInitial.parentNode.removeChild(vcHideInitial);
+}
