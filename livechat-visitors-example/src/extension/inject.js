@@ -46,7 +46,7 @@ observer.observe(document.body, {
     characterData: false
 });
 
-chrome.storage.sync.get('VC_USER',
+chrome.storage.local.get('VC_USER',
     function (value) {
         const template =
             `
@@ -80,7 +80,7 @@ window.__lc.visitor = {
     });
 
 function setVisibleState() {
-    chrome.storage.sync.get({'VC_SHOWN': true}, function (result) {
+    chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
         if (result.VC_SHOWN) {
             chrome.runtime.sendMessage({ type: 'VC_SHOW' });
         }

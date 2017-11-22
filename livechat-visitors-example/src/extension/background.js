@@ -1,6 +1,6 @@
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         'VC_USER': userInfo
     });
 })
@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 function onShowToggled() {
-    chrome.storage.sync.get('VC_SHOWN',
+    chrome.storage.local.get('VC_SHOWN',
         function (value) {
             console.log(value);
             if (value.VC_SHOWN) {
@@ -64,7 +64,7 @@ function filter(tab) {
 function show() {
     console.log('showing tabs');
     applyToTabs(function (tab) {
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             'VC_SHOWN': true
         }, function () {
             chrome.tabs.executeScript(tab.id, {
@@ -79,7 +79,7 @@ function hide() {
     console.log('hiding tabs');
     applyToTabs(function (tab) {
         console.log(tab.url);
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             'VC_SHOWN': false
         }, function () {
             chrome.tabs.executeScript(tab.id, {
