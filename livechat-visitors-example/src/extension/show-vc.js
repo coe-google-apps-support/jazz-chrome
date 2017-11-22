@@ -3,7 +3,6 @@ console.log('show-vc')
 showVCText =
 `
 var LC_API = LC_API || {};
-LC_API.open_chat_window();
 LC_API.minimize_chat_window();
 `
 

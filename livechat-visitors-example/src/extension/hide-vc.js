@@ -3,7 +3,6 @@ console.log('hide-vc');
 hideVCStyles =
 `
 var LC_API = LC_API || {};
-LC_API.minimize_chat_window();
 LC_API.hide_chat_window();
 `
 
