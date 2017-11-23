@@ -5,6 +5,16 @@ console.log('inject.js');
 // Note that a simple return won't work here.
 if (!document.getElementById('livechat-full')) {
 
+window.addEventListener('message', function(event) {
+    if (event.data.type === 'VC_LIVECHAT_MESSAGE') {
+        chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
+            if (!result.VC_SHOWN) {
+                chrome.runtime.sendMessage({ type: 'VC_SHOW' });
+            }
+        });
+    }
+});
+
 // Hiding livechat container at beginning
 let vsInitElement = document.createElement('style');
 vsInitElement.type = 'text/css';
@@ -51,11 +61,16 @@ chrome.storage.local.get('VC_USER',
         const template =
             `
 var LC_API = LC_API || {};
-
 LC_API.on_before_load = function() {
-    console.log('hiding chat on init')
-    // LC_API.hide_chat_window();
     LC_API.disable_sounds();
+};
+
+// Messages
+LC_API.on_message = function(data)
+{
+  window.postMessage({
+      'type': 'VC_LIVECHAT_MESSAGE'
+  }, '*')
 };
 
 window.__lc = window.__lc || {};
