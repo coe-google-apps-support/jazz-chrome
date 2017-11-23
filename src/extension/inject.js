@@ -6,7 +6,7 @@ console.log('inject.js');
 if (!document.getElementById('livechat-full')) {
 
 window.addEventListener('message', function(event) {
-    if (event.data.type === 'VC_LIVECHAT_MESSAGE') {
+    if (event && event.data && event.data.type && event.data.type === 'VC_LIVECHAT_MESSAGE') {
         chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
             if (!result.VC_SHOWN) {
                 chrome.runtime.sendMessage({ type: 'VC_SHOW' });
