@@ -65,31 +65,12 @@ function filter(tab) {
 
 function show() {
     console.log('showing tabs');
-    applyToTabs(function (tab) {
-        chrome.storage.local.set({
-            'VC_SHOWN': true
-        }, function () {
-            chrome.tabs.executeScript(tab.id, {
-                file: 'src/extension/show-vc.js'
-            });
-            chrome.browserAction.setBadgeText({ text: 'On' });
-        });
-    }, filter);
+    applyToTabs(show_tab, filter);
 }
 
 function hide() {
     console.log('hiding tabs');
-    applyToTabs(function (tab) {
-        console.log(tab.url);
-        chrome.storage.local.set({
-            'VC_SHOWN': false
-        }, function () {
-            chrome.tabs.executeScript(tab.id, {
-                file: 'src/extension/hide-vc.js'
-            });
-            chrome.browserAction.setBadgeText({ text: 'Off' });
-        });
-    }, filter);
+    applyToTabs(hide_tab, filter);
 }
 
 function inject() {
