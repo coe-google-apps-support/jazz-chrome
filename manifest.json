@@ -1,7 +1,7 @@
 {
     "name": "VIP Chat",
     "description": "Start chatting with an IT professional now.",
-    "version": "10",
+    "version": "9",
     "manifest_version": 2,
     "browser_action": {
         "default_title": "VIP Chat",
