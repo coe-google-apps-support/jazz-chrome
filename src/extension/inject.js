@@ -97,10 +97,10 @@ window.__lc.visitor = {
 function setVisibleState() {
     chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
         if (result.VC_SHOWN) {
-            chrome.runtime.sendMessage({ type: 'VC_SHOW' });
+            chrome.runtime.sendMessage({ type: 'VC_SHOW_TAB' });
         }
         else {
-            chrome.runtime.sendMessage({ type: 'VC_HIDE' });
+            chrome.runtime.sendMessage({ type: 'VC_HIDE_TAB' });
         }
     });
 }

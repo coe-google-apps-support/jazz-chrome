@@ -11,12 +11,18 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log('Got message?')
+    console.log('Got message? request.type = ' + request.type + ' and sender.tab.url = ' + sender.tab.url);
     if (request.type === 'VC_HIDE') {
         hide();
     }
     else if (request.type === 'VC_SHOW') {
         show();
+    }
+    else if (request.type === 'VC_SHOW_TAB') {
+        show_tab(sender.tab);
+    }
+    else if (request.type === 'VC_HIDE_TAB') {
+        hide_tab(sender.tab);
     }
 
     return true;
@@ -96,4 +102,26 @@ function inject() {
             file: 'src/extension/inject.js'
         })
     }, filter);
+}
+
+function show_tab(tab) {
+    chrome.storage.local.set({
+        'VC_SHOWN': true
+    }, function () {
+        chrome.tabs.executeScript(tab.id, {
+            file: 'src/extension/show-vc.js'
+        });
+        chrome.browserAction.setBadgeText({ text: 'On' });
+    });
+}
+
+function hide_tab(tab) {
+    chrome.storage.local.set({
+        'VC_SHOWN': false
+    }, function () {
+        chrome.tabs.executeScript(tab.id, {
+            file: 'src/extension/hide-vc.js'
+        });
+        chrome.browserAction.setBadgeText({ text: 'Off' });
+    });
 }
