@@ -13,9 +13,6 @@ window.addEventListener('message', function(event) {
             }
         });
     }
-    else if (event && event.data && event.data.type && event.data.type === 'VC_LIVECHAT_ACTIVE') {
-        setVisibleState(); // Check if livechat is active and ready to go, then show our visible button
-    }
 });
 
 // Hiding livechat container at beginning
@@ -35,6 +32,30 @@ document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 
 // Wait until both are populated
 
+const observer = new MutationObserver(function (mutations) {
+    let setVisible = false;
+    mutations.forEach(function (mutation) {
+        if (!mutation.addedNodes) return;        
+        for (let i = 0; i < mutation.addedNodes.length; i++) {
+            // do things to your newly added nodes here
+            let node = mutation.addedNodes[i];
+            if (node.id !== 'livechat-full' && node.id !== 'livechat-compact-container') return;
+            setVisible = true;       
+        }
+    });
+
+    if (setVisible) {
+        setVisibleState();
+    }
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: false,
+    characterData: false
+});
+
 chrome.storage.local.get('VC_USER',
     function (value) {
         const template =
@@ -42,9 +63,6 @@ chrome.storage.local.get('VC_USER',
 var LC_API = LC_API || {};
 LC_API.on_before_load = function() {
     LC_API.disable_sounds();
-    window.postMessage({
-        'type': 'VC_LIVECHAT_ACTIVE'
-    }, '*')
 };
 
 // Messages
@@ -76,7 +94,6 @@ window.__lc.visitor = {
         document.body.appendChild(script);
     });
 
-// Either shows or hides our floating button
 function setVisibleState() {
     chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
         if (result.VC_SHOWN) {
