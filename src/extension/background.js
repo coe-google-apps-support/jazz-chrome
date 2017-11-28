@@ -12,13 +12,9 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Got message? request.type = ' + request.type + ' and sender.tab.url = ' + sender.tab.url);
-    if (request.type === 'VC_HIDE') {
-        hide();
-    }
-    else if (request.type === 'VC_SHOW') {
-        show();
-    }
-    else if (request.type === 'VC_SHOW_TAB') {
+    
+    // By only doing a show for each tab, there won't be duplicate or multiple "show"s or "hide"s, which means better performance
+    if (request.type === 'VC_SHOW_TAB') {
         show_tab(sender.tab);
     }
     else if (request.type === 'VC_HIDE_TAB') {

@@ -9,7 +9,7 @@ window.addEventListener('message', function(event) {
     if (event && event.data && event.data.type && event.data.type === 'VC_LIVECHAT_MESSAGE') {
         chrome.storage.local.get({'VC_SHOWN': true}, function (result) {
             if (!result.VC_SHOWN) {
-                chrome.runtime.sendMessage({ type: 'VC_SHOW' });
+                chrome.runtime.sendMessage({ type: 'VC_SHOW_TAB' });
             }
         });
     }
