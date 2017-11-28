@@ -63,6 +63,11 @@ chrome.storage.local.get('VC_USER',
 var LC_API = LC_API || {};
 LC_API.on_before_load = function() {
     LC_API.disable_sounds();
+    console.log('on before load happened');
+};
+
+LC_API.on_after_load = function() {
+    console.log('on after load happened');
 };
 
 // Messages
