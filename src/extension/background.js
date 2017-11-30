@@ -5,11 +5,11 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     });
 })
 
-chrome.browserAction.onClicked.addListener(function (tab) {    
+/*chrome.browserAction.onClicked.addListener(function (tab) {    
     console.log('Browser Action');
-    //onShowToggled();
+    onShowToggled();
 });
-/* 
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Got message? request.type = ' + request.type + ' and sender.tab.url = ' + sender.tab.url);
     

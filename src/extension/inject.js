@@ -1,3 +1,6 @@
+/* This isn't used in pop-up version */
+
+
 const tracking = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
 console.log('inject.js');
 

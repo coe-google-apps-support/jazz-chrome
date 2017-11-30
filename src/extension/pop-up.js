@@ -1,17 +1,17 @@
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 console.log('pop-up.js');
 
+// Add livechat init code
 chrome.storage.local.get('VC_USER',
 function (value) {
 
     var LC_API = LC_API || {};
     LC_API.on_before_load = function() {
         LC_API.disable_sounds();
-        console.log('on before load happened');
+        console.log('on before load happened'); // is never run?
     };
 
     LC_API.on_after_load = function() {
-        //LC_API.open_chat_window();
         console.log('on after load happened');
     };
 
@@ -31,6 +31,7 @@ function (value) {
 });
 
 // Hiding livechat container at beginning
+// Eventually this could be moved to the livechat site, but this works for now
 let vsInitElement = document.createElement('style');
 vsInitElement.type = 'text/css';
 vsInitElement.id = 'vc-initial-style';
@@ -49,7 +50,7 @@ vsInitElement.innerHTML = `
         top: 0 !important;
         bottom: 0 !important;
         right: 0 !important;
-        height: 500px !important;
+        height: 550px !important;
       }
       
       #wrapper {
@@ -65,9 +66,10 @@ vsInitElement.innerHTML = `
 `;
 document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 
+// Make sure the chat window opens on launch
 var LC_API = LC_API || {};
 LC_API.on_after_load = function() {
     LC_API.open_chat_window();
-    console.log('on after load happened');
+    console.log('on after load happened'); // But this runs?
 };
 
