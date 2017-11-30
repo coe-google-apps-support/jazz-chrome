@@ -9,13 +9,28 @@
 #powered {
   display: none;
 }
-#wrapper {
-  margin: 0px !important;
-  padding: 0px !important;
-  height: 100% !important;
-}
 #minimize {
   display: none !important;
+}
+
+/* taken from livechat website - makes the chat window fill out the popup */
+#livechat-full {
+  position: inherit;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  height: auto !important;
+}
+
+#wrapper {
+  padding-right: 0;
+  padding-top: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+#title {
+  border-radius: 0;
 }
 
 /* css for a mobile device */

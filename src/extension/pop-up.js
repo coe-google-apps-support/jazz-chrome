@@ -11,7 +11,7 @@ function (value) {
     };
 
     LC_API.on_after_load = function() {
-        LC_API.open_chat_window();
+        //LC_API.open_chat_window();
         console.log('on after load happened');
     };
 
@@ -29,4 +29,45 @@ function (value) {
     })();
 
 });
+
+// Hiding livechat container at beginning
+let vsInitElement = document.createElement('style');
+vsInitElement.type = 'text/css';
+vsInitElement.id = 'vc-initial-style';
+vsInitElement.innerHTML = `    
+    #livechat-compact-container {
+        display: none !important;
+    }
+
+    #minimize { /* Doesn't do anything, need to figure out why */
+        display: none !important;
+    }
+
+    #livechat-full {
+        position: inherit !important;
+        display: inherit!important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        height: 500px !important;
+      }
+      
+      #wrapper {
+        padding-right: 0;
+        padding-top: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+      }
+      
+      #title {
+        border-radius: 0;
+      }
+`;
+document.getElementsByTagName('head')[0].appendChild(vsInitElement);
+
+var LC_API = LC_API || {};
+LC_API.on_after_load = function() {
+    LC_API.open_chat_window();
+    console.log('on after load happened');
+};
 
