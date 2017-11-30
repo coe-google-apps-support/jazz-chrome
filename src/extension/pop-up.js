@@ -12,6 +12,7 @@ function (value) {
 
     LC_API.on_after_load = function() {
         LC_API.open_chat_window();
+        console.log('on after load happened');
     };
 
     window.__lc = window.__lc || {};

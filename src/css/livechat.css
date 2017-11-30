@@ -1,5 +1,10 @@
+
+/* css for a pop out window in google chrome */
 #livechat-compact-container {
   display: none!important;
+}
+#livechat-full {
+  display: inherit!important;
 }
 #powered {
   display: none;
@@ -13,6 +18,7 @@
   display: none !important;
 }
 
+/* css for a mobile device */
 @livechat-mobile {
   #livechat-compact-container {
     display: none!important;
