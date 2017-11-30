@@ -7,9 +7,9 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
 
 chrome.browserAction.onClicked.addListener(function (tab) {    
     console.log('Browser Action');
-    onShowToggled();
+    //onShowToggled();
 });
-
+/* 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Got message? request.type = ' + request.type + ' and sender.tab.url = ' + sender.tab.url);
     
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install"){
         console.log("This is a first install!");
-        inject();
+        //inject();
     }
 });
 
@@ -101,4 +101,4 @@ function hide_tab(tab) {
         });
         chrome.browserAction.setBadgeText({ text: 'Off' });
     });
-}
+} */

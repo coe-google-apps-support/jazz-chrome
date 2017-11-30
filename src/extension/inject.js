@@ -1,4 +1,4 @@
-const tracking = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 console.log('inject.js');
 
 // If this page already has a chat container, skip everything.
@@ -58,45 +58,37 @@ observer.observe(document.body, {
 
 chrome.storage.local.get('VC_USER',
     function (value) {
-        const template =
-            `
-var LC_API = LC_API || {};
-LC_API.on_before_load = function() {
-    LC_API.disable_sounds();
-    console.log('on before load happened');
-};
 
-LC_API.on_after_load = function() {
-    console.log('on after load happened');
-};
+        var LC_API = LC_API || {};
+        LC_API.on_before_load = function() {
+            LC_API.disable_sounds();
+            console.log('on before load happened');
+        };
 
-// Messages
-LC_API.on_message = function(data)
-{
-  window.postMessage({
-      'type': 'VC_LIVECHAT_MESSAGE'
-  }, '*')
-};
+        LC_API.on_after_load = function() {
+            console.log('on after load happened');
+        };
 
-window.__lc = window.__lc || {};
-window.__lc.license = 9242305;
-window.__lc.mute_csp_errors = true;
-window.__lc.visitor = {
-    name: '${value.VC_USER.email}',
-    email: '${value.VC_USER.email}'
-};
-(function() {
-    var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-    lc.src = "${tracking}";
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-})();
-`
+        // Messages
+        LC_API.on_message = function(data)
+        {
+        window.postMessage({
+            'type': 'VC_LIVECHAT_MESSAGE'
+        }, '*')
+        };
 
-        let script = document.createElement('script');
-        script.type = 'text/javascript'
-        script.innerHTML = template;
-
-        document.body.appendChild(script);
+        window.__lc = window.__lc || {};
+        window.__lc.license = 9242305;
+        window.__lc.mute_csp_errors = true;
+        window.__lc.visitor = {
+            name: value.VC_USER.email,
+            email: value.VC_USER.email
+        };
+        (function() {
+            var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+            lc.src = tracking;
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+        })();
     });
 
 function setVisibleState() {

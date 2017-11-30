@@ -5,7 +5,8 @@
     "manifest_version": 2,
     "browser_action": {
         "default_title": "VIP Chat",
-        "default_icon": "img/icon16.png"
+        "default_icon": "img/icon16.png",
+        "default_popup": "src/extension/pop-up.html"
     },
     "permissions": [
         "identity",
@@ -15,17 +16,17 @@
         "http://*/*",
         "https://*/*"
     ],
-    "content_scripts": [
+    /* "content_scripts": [
         {
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
+            "matches": [ */
+                //"http://*/*",
+                //"https://*/*"
+            /* ],
             "js": [
                 "src/extension/inject.js"
             ]
         }
-    ],
+    ], */
     "background": {
         "scripts": [
             "src/extension/background.js"
@@ -36,5 +37,5 @@
         "src/app/livechat.html",
         "src/extension/tracking.js"
     ],
-    "content_security_policy": "script-src 'self' https://cdn.livechatinc.com; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://cdn.livechatinc.com https://secure.livechatinc.com; object-src 'self'"
 }
