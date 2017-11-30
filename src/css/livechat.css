@@ -13,6 +13,12 @@
   display: none !important;
 }
 
+#livechat-full-view {
+  left: -15px!important;
+  width: 107.2%!important;
+  top: -15px!important;
+}
+
 /* taken from livechat website - makes the chat window fill out the popup */
 #livechat-full {
   position: inherit;

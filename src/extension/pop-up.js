@@ -52,6 +52,12 @@ vsInitElement.innerHTML = `
         right: 0 !important;
         height: 550px !important;
       }
+
+      #livechat-full-view {
+        left: -15px!important;
+        width: 107.2%!important;
+        top: -15px!important;
+      }
       
       #wrapper {
         padding-right: 0;
