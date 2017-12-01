@@ -50,13 +50,14 @@ vsInitElement.innerHTML = `
         top: 0 !important;
         bottom: 0 !important;
         right: 0 !important;
-        height: 550px !important;
+        height: 500px !important;
       }
 
       #livechat-full-view {
         left: -15px!important;
-        width: 107.2%!important;
+        width: 107%!important;
         top: -15px!important;
+        height: 110%!important;
       }
       
       #wrapper {
@@ -68,6 +69,14 @@ vsInitElement.innerHTML = `
       
       #title {
         border-radius: 0;
+      }
+
+
+      @media 
+      (-webkit-min-device-pixel-ratio: 1.5) {
+        #livechat-full {
+          height: 300px;
+        }
       }
 `;
 document.getElementsByTagName('head')[0].appendChild(vsInitElement);

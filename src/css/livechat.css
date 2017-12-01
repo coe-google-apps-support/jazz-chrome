@@ -19,6 +19,7 @@
   left: -15px!important;
   width: 107.2%!important;
   top: -15px!important;
+  height: 110%!important;
 }
 
 /* taken from livechat website - makes the chat window fill out the popup */
@@ -27,7 +28,7 @@
   top: 0 !important;
   bottom: 0 !important;
   right: 0 !important;
-  height: auto !important;
+  height: 500px !important;
 }
 
 #wrapper {
@@ -40,6 +41,17 @@
 #title {
   border-radius: 0;
 }
+
+/* css for different device viewports */
+
+@media 
+(-webkit-min-device-pixel-ratio: 1.5) {
+  #livechat-full {
+    height: 300px;
+  }
+}
+
+
 
 /* css for a mobile device */
 @livechat-mobile {
