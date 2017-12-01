@@ -1,8 +1,39 @@
 var message_count = 0;
 var VC_USER;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
-var LC_API = LC_API || {};
-window.__lc = window.__lc || {};
+
+function loadLiveChat(url, callback){
+    //https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file?noredirect=1&lq=1
+
+    // Adding the script tag to the head
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+// Set up our background livechat session
+loadLiveChat("https://unpkg.com/@livechat/livechat-visitor-sdk@0.28.4/dist/livechat-visitor-sdk.min.js", function(){
+    
+
+const visitorSDK = window.LivechatVisitorSDK.init({
+    license: 9242305,
+    group: 3,
+    });
+visitorSDK.on('new_message', (newMessage) => {
+    console.log(newMessage);
+    message_received();
+});
+
+console.log("livechat loaded in background.js");
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
@@ -10,7 +41,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     });
     VC_USER = userInfo;
 
-    // Set up livechat backend (so we can get notifications)
+    /* Set up livechat backend (so we can get notifications)
     window.__lc.license = 9242305;
     window.__lc.mute_csp_errors = true;
     window.__lc.visitor = {
@@ -29,11 +60,8 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
         if(data.user_type == 'agent'){
             message_received();
         }
-    };
-})
-
-
-
+    };*/
+});
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Got message? request.type = ' + request.type);
@@ -58,7 +86,19 @@ function reset_icon(){
     chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]}); //blank transparent background
 };
 
-/*chrome.runtime.onInstalled.addListener(function(details){
+
+
+
+});
+
+
+/*
+
+var LC_API = LC_API || {};
+window.__lc = window.__lc || {};
+
+
+chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install"){
         console.log("This is a first install!");
         //inject();
