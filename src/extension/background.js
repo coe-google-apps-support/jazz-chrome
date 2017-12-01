@@ -1,30 +1,64 @@
+var message_count = 0;
+var VC_USER;
+const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
+var LC_API = LC_API || {};
+window.__lc = window.__lc || {};
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
+    VC_USER = userInfo;
+
+    // Set up livechat backend (so we can get notifications)
+    window.__lc.license = 9242305;
+    window.__lc.mute_csp_errors = true;
+    window.__lc.visitor = {
+        name: VC_USER.email,
+        email: VC_USER.email
+    };
+    (function() {
+        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+        lc.src = tracking;
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+    })();
+    // Messages
+    LC_API.on_message = function(data)
+    {  
+        console.log("we got a message!");
+        if(data.user_type == 'agent'){
+            message_received();
+        }
+    };
 })
 
-/*chrome.browserAction.onClicked.addListener(function (tab) {    
-    console.log('Browser Action');
-    onShowToggled();
-});
+
+
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log('Got message? request.type = ' + request.type + ' and sender.tab.url = ' + sender.tab.url);
+    console.log('Got message? request.type = ' + request.type);
     
     // By only doing a show for each tab, there won't be duplicate or multiple "show"s or "hide"s, which means better performance
-    if (request.type === 'VC_SHOW_TAB') {
-        show_tab(sender.tab);
-    }
-    else if (request.type === 'VC_HIDE_TAB') {
-        hide_tab(sender.tab);
+    if (request.type === 'RESET_COUNTER') {
+        reset_icon();
     }
 
     return true;
 });
 
-chrome.runtime.onInstalled.addListener(function(details){
+function message_received(){
+    console.log("we received and acted upon a message!");
+    message_count++;
+    chrome.browserAction.setBadgeText({text: message_count});
+    chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 255]}); //red
+}
+
+function reset_icon(){
+    chrome.browserAction.setBadgeText({text: ''});
+    chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]}); //blank transparent background
+};
+
+/*chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install"){
         console.log("This is a first install!");
         //inject();

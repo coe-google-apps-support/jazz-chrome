@@ -31,6 +31,7 @@
         "scripts": [
             "src/extension/background.js"
         ],
+        /* "page": "src/extension/pop-up.html", */
         "persistent": false
     },
     "web_accessible_resources": [

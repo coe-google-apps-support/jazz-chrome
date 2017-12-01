@@ -72,14 +72,15 @@ vsInitElement.innerHTML = `
       }
 
 
-      @media 
+      /* @media 
       (-webkit-min-device-pixel-ratio: 1.5) {
         #livechat-full {
           height: 300px;
         }
-      }
+      } */
 `;
 document.getElementsByTagName('head')[0].appendChild(vsInitElement);
+
 
 // Make sure the chat window opens on launch
 var LC_API = LC_API || {};
@@ -88,3 +89,14 @@ LC_API.on_after_load = function() {
     console.log('on after load happened'); // But this runs?
 };
 
+/* Messages - not run since popup is not always open
+LC_API.on_message = function(data)
+{  
+    if(data.user_type == 'agent'){
+        chrome.runtime.sendMessage({ type: 'MESSAGE_RECEIVED' });
+    }
+}; */
+
+
+// Reset our unread message counter
+chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
