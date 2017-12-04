@@ -1,8 +1,7 @@
 var message_count = 0;
-var VC_USER;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
-function loadLiveChat(url, callback){
+/*function loadLiveChat(url, callback){
     //https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file?noredirect=1&lq=1
 
     // Adding the script tag to the head
@@ -20,7 +19,7 @@ function loadLiveChat(url, callback){
     head.appendChild(script);
 }
 
-// Set up our background livechat session
+//  Set up our background livechat session
 loadLiveChat("https://unpkg.com/@livechat/livechat-visitor-sdk@0.28.4/dist/livechat-visitor-sdk.min.js", function(){
     
 
@@ -31,36 +30,27 @@ const visitorSDK = window.LivechatVisitorSDK.init({
 visitorSDK.on('new_message', (newMessage) => {
     console.log(newMessage);
     message_received();
-});
-
-console.log("livechat loaded in background.js");
+}); */
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
-    VC_USER = userInfo;
 
-    /* Set up livechat backend (so we can get notifications)
+    // Set up livechat backend (so we can get notifications)
+    window.__lc = window.__lc || {};
     window.__lc.license = 9242305;
     window.__lc.mute_csp_errors = true;
     window.__lc.visitor = {
-        name: VC_USER.email,
-        email: VC_USER.email
+        name: userInfo.email,
+        email: userInfo.email
     };
     (function() {
         var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
         lc.src = tracking;
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
     })();
-    // Messages
-    LC_API.on_message = function(data)
-    {  
-        console.log("we got a message!");
-        if(data.user_type == 'agent'){
-            message_received();
-        }
-    };*/
+    
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -70,18 +60,34 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.type === 'RESET_COUNTER') {
         reset_icon();
     }
+    if (request.type === 'VISITOR_ENGAGED'){
+        // var LC_API = LC_API || {};
+        var result = LC_API.visitor_engaged();
+        console.log('visitor engaged? ' + result);
+    }
 
     return true;
 });
 
+var LC_API = LC_API || {};
+// Messages
+LC_API.on_message = function(data)
+{  
+    console.log("we got a message!");
+    if(data.user_type == 'agent'){
+        message_received();
+    }
+};
+
 function message_received(){
     console.log("we received and acted upon a message!");
     message_count++;
-    chrome.browserAction.setBadgeText({text: message_count});
+    chrome.browserAction.setBadgeText({text: message_count.toString()});
     chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 255]}); //red
 }
 
 function reset_icon(){
+    message_count = 0;
     chrome.browserAction.setBadgeText({text: ''});
     chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]}); //blank transparent background
 };
@@ -89,7 +95,7 @@ function reset_icon(){
 
 
 
-});
+//});
 
 
 /*

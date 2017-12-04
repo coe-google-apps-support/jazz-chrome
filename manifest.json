@@ -28,11 +28,7 @@
         }
     ], */
     "background": {
-        "scripts": [
-            "src/extension/background.js"
-        ],
-        /* "page": "src/extension/pop-up.html", */
-        "persistent": false
+        "page": "src/extension/background.html"
     },
     "web_accessible_resources": [
         "src/app/livechat.html",

@@ -86,17 +86,12 @@ document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 var LC_API = LC_API || {};
 LC_API.on_after_load = function() {
     LC_API.open_chat_window();
-    console.log('on after load happened'); // But this runs?
+    console.log('on after load happened, opened the chat window'); // But this runs?
 };
-
-/* Messages - not run since popup is not always open
-LC_API.on_message = function(data)
-{  
-    if(data.user_type == 'agent'){
-        chrome.runtime.sendMessage({ type: 'MESSAGE_RECEIVED' });
-    }
-}; */
 
 
 // Reset our unread message counter
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
+
+// Keep Livechat connection open
+chrome.runtime.sendMessage({ type: 'VISITOR_ENGAGED' });
