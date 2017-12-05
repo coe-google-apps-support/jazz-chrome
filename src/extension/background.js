@@ -1,41 +1,29 @@
+var visitor_id;
+var chat_id;
 var message_count = 0;
+var welcome_message = "Hello! Test123";
+var VC_USER_EMAIL;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
-/*function loadLiveChat(url, callback){
-    //https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file?noredirect=1&lq=1
-
-    // Adding the script tag to the head
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Fire the loading
-    head.appendChild(script);
-}
-
-//  Set up our background livechat session
-loadLiveChat("https://unpkg.com/@livechat/livechat-visitor-sdk@0.28.4/dist/livechat-visitor-sdk.min.js", function(){
-    
 
 const visitorSDK = window.LivechatVisitorSDK.init({
     license: 9242305,
     group: 3,
     });
+visitorSDK.on('chat_started', (chatData) => {
+    chat_id = chatData.chatId;
+    console.log("Chat started with ID: " + chat_id);
+})
 visitorSDK.on('new_message', (newMessage) => {
-    console.log(newMessage);
+    console.log("Received a message: " + newMessage.text + " from " + newMessage.authorId + " with chat ID: " + newMessage.chatId);
     message_received();
-}); */
+});
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
+    VC_USER_EMAIL = userInfo.email;
 
     // Set up livechat backend (so we can get notifications)
     window.__lc = window.__lc || {};
@@ -50,6 +38,44 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
         lc.src = tracking;
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
     })();
+
+    
+    
+    
+    visitor_id = Math.floor(Math.random() * 1000000000); // 1 billion
+    //visitor_id = LC_API.get_visitor_id();
+    console.log(visitor_id);
+
+    // Start the chat
+    $.ajax({
+        url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/start?licence_id=9242305&welcome_message="+welcome_message+"&name="+VC_USER_EMAIL+"&email="+VC_USER_EMAIL+"&group=3",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-API-VERSION", "2")
+        }, success: function(data){
+            //process the JSON data etc
+            console.log(data);
+        }
+    })
+
+
+    chat_id = LC_API.get_chat_id();
+    console.log(chat_id);
+    
+
+    /* send HTTP Request to start chat immediately
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "https://api.livechatinc.com/visitors/<"+visitor_id+">/chat/get_pending_messages?licence_id="+9242305+"secured_session_id="+chat_id, true);
+    xhttp.setRequestHeader("Content-type", "application/json"); */
+
+    $.ajax({
+        url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id.toString(),
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-API-VERSION", "2")
+        }, success: function(data){
+            //process the JSON data etc
+            console.log(data);
+        }
+    })
     
 });
 
@@ -61,9 +87,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         reset_icon();
     }
     if (request.type === 'VISITOR_ENGAGED'){
-        // var LC_API = LC_API || {};
-        var result = LC_API.visitor_engaged();
-        console.log('visitor engaged? ' + result);
+        LC_API = LC_API || {};
+        LC_API.open_chat_window();
+        console.log('chat window opened?');
     }
 
     return true;
@@ -78,6 +104,11 @@ LC_API.on_message = function(data)
         message_received();
     }
 };
+// Get visitor ID
+//LC_API.on_after_load = function() {
+    
+//};
+
 
 function message_received(){
     console.log("we received and acted upon a message!");

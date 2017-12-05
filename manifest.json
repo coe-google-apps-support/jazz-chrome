@@ -28,11 +28,12 @@
         }
     ], */
     "background": {
-        "page": "src/extension/background.html"
+        "page": "src/extension/background.html",
+        "persistent": true
     },
     "web_accessible_resources": [
         "src/app/livechat.html",
         "src/extension/tracking.js"
     ],
-    "content_security_policy": "script-src 'self' https://cdn.livechatinc.com https://secure.livechatinc.com https://unpkg.com/@livechat/; object-src 'self'" // secure.livechatinc.com needs to be added too
+    "content_security_policy": "script-src 'self' https://cdn.livechatinc.com https://secure.livechatinc.com https://unpkg.com/@livechat/ https://api.livechatinc.com; object-src 'self'"
 }
