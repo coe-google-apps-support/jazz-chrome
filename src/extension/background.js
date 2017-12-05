@@ -41,6 +41,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
 
     
     
+    /* Halfway implemented REST API code
     
     visitor_id = Math.floor(Math.random() * 1000000000); // 1 billion
     //visitor_id = LC_API.get_visitor_id();
@@ -65,7 +66,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     /* send HTTP Request to start chat immediately
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://api.livechatinc.com/visitors/<"+visitor_id+">/chat/get_pending_messages?licence_id="+9242305+"secured_session_id="+chat_id, true);
-    xhttp.setRequestHeader("Content-type", "application/json"); */
+    xhttp.setRequestHeader("Content-type", "application/json"); 
 
     $.ajax({
         url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id.toString(),
@@ -75,14 +76,13 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
             //process the JSON data etc
             console.log(data);
         }
-    })
+    }) */
     
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Got message? request.type = ' + request.type);
     
-    // By only doing a show for each tab, there won't be duplicate or multiple "show"s or "hide"s, which means better performance
     if (request.type === 'RESET_COUNTER') {
         reset_icon();
     }
