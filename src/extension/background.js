@@ -6,6 +6,7 @@ var VC_USER_EMAIL;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
 
+/* Not needed right now 
 const visitorSDK = window.LivechatVisitorSDK.init({
     license: 9242305,
     group: 3,
@@ -17,7 +18,7 @@ visitorSDK.on('chat_started', (chatData) => {
 visitorSDK.on('new_message', (newMessage) => {
     console.log("Received a message: " + newMessage.text + " from " + newMessage.authorId + " with chat ID: " + newMessage.chatId);
     message_received();
-});
+}); */
 
 chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
@@ -48,6 +49,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     console.log(visitor_id);
 
     // Start the chat
+    NOT NEEDED - If we're starting the chat through JS API
     $.ajax({
         url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/start?licence_id=9242305&welcome_message="+welcome_message+"&name="+VC_USER_EMAIL+"&email="+VC_USER_EMAIL+"&group=3",
         beforeSend: function(xhr) {
@@ -104,6 +106,16 @@ LC_API.on_message = function(data)
         message_received();
     }
 };
+
+// Get the Chat ID, after chat started
+// Only occurs if chat starts with background.js
+LC_API.on_chat_started = function(data)
+{
+  console.log('Chat started with agent: ' + data.agent_name);
+  chat_id = LC_API.get_chat_id();
+  console.log('Chat ID is: ' + chat_id);
+};
+
 // Get visitor ID
 //LC_API.on_after_load = function() {
     
