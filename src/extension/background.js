@@ -3,6 +3,7 @@ var chat_id;
 var message_count = 0;
 var welcome_message = "Hello! Test123";
 var VC_USER_EMAIL;
+var timerOn;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
 
@@ -41,45 +42,6 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     })();
 
     
-    
-    /* Halfway implemented REST API code
-    
-    visitor_id = Math.floor(Math.random() * 1000000000); // 1 billion
-    //visitor_id = LC_API.get_visitor_id();
-    console.log(visitor_id);
-
-    // Start the chat
-    NOT NEEDED - If we're starting the chat through JS API
-    $.ajax({
-        url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/start?licence_id=9242305&welcome_message="+welcome_message+"&name="+VC_USER_EMAIL+"&email="+VC_USER_EMAIL+"&group=3",
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("X-API-VERSION", "2")
-        }, success: function(data){
-            //process the JSON data etc
-            console.log(data);
-        }
-    })
-
-
-    chat_id = LC_API.get_chat_id();
-    console.log(chat_id);
-    
-
-    /* send HTTP Request to start chat immediately
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "https://api.livechatinc.com/visitors/<"+visitor_id+">/chat/get_pending_messages?licence_id="+9242305+"secured_session_id="+chat_id, true);
-    xhttp.setRequestHeader("Content-type", "application/json"); 
-
-    $.ajax({
-        url: "https://api.livechatinc.com/visitors/<"+visitor_id.toString()+">/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id.toString(),
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("X-API-VERSION", "2")
-        }, success: function(data){
-            //process the JSON data etc
-            console.log(data);
-        }
-    }) */
-    
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -88,12 +50,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.type === 'RESET_COUNTER') {
         reset_icon();
     }
-    if (request.type === 'VISITOR_ENGAGED'){
-        LC_API = LC_API || {};
-        LC_API.open_chat_window();
-        console.log('chat window opened?');
+    if (request.type === 'CHAT_ID') {
+        console.log('Got Chat ID from popup, it is: ' + request.data);
+        chat_id = request.data; // Is a string
+        
+        // Now set the get_pending_chats REST API call to run
+        if (timerOn != null){
+            clearInterval(timerOn);
+        }
+        setInterval(get_pending_chats, 5000); // execute every 5 seconds
     }
-
+    
     return true;
 });
 
@@ -109,11 +76,36 @@ LC_API.on_message = function(data)
 
 // Get the Chat ID, after chat started
 // Only occurs if chat starts with background.js
-LC_API.on_chat_started = function(data)
+LC_API.on_after_load = function()
 {
-  console.log('Chat started with agent: ' + data.agent_name);
+  //console.log('Chat started with agent: ' + data.agent_name);
+  //chat_id = LC_API.get_chat_id(); GETTING CHAT_ID FROM POPUP, NOT NEEDED
+  //console.log('Chat ID is: ' + chat_id);
+
+
+  // Halfway implemented REST API code
+    
+  //visitor_id = Math.floor(Math.random() * 1000000000); // 1 billion
+  visitor_id = LC_API.get_visitor_id();
+  console.log(visitor_id);
+
+  // Start the chat
+  /* NOT NEEDED - If we're starting the chat through JS API in popup.js, and getting the chat_id
+    FUN FACT: CHAT_ID ISN'T THE SAME AS SECURED_SESSION_ID
+  $.ajax({
+      url: "https://api.livechatinc.com/visitors/"+visitor_id.toString()+"/chat/start?licence_id=9242305&welcome_message="+welcome_message+"&name="+VC_USER_EMAIL+"&email="+VC_USER_EMAIL+"&group=3",
+      beforeSend: function(xhr) {
+          xhr.setRequestHeader("X-API-VERSION", "2")
+      }, success: function(data){
+          //process the JSON data etc
+          console.log(data);
+      }
+  }) */
+
+
   chat_id = LC_API.get_chat_id();
-  console.log('Chat ID is: ' + chat_id);
+  console.log("get_chat_id() is " + chat_id);
+  
 };
 
 // Get visitor ID
@@ -135,93 +127,19 @@ function reset_icon(){
     chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]}); //blank transparent background
 };
 
+function get_pending_chats() {
+// send HTTP Request to get pending chats immediately
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "https://api.livechatinc.com/visitors/"+visitor_id+"/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id, true);
+  xhttp.setRequestHeader("Content-type", "application/json"); 
 
-
-
-//});
-
-
-/*
-
-var LC_API = LC_API || {};
-window.__lc = window.__lc || {};
-
-
-chrome.runtime.onInstalled.addListener(function(details){
-    if(details.reason == "install"){
-        console.log("This is a first install!");
-        //inject();
-    }
-});
-
-function onShowToggled() {
-    chrome.storage.local.get('VC_SHOWN',
-        function (value) {
-            console.log(value);
-            if (value.VC_SHOWN) {
-                hide();
-            }
-            else {
-                show();
-            }
-        });
+  $.ajax({
+      url: "https://api.livechatinc.com/visitors/"+visitor_id.toString()+"/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id.toString(),
+      beforeSend: function(xhr) {
+          xhr.setRequestHeader("X-API-VERSION", "2")
+      }, success: function(data){
+          //process the JSON data etc
+          console.log(JSON.stringify(data));
+      }
+  })
 }
-
-function applyToTabs(func, filter) {
-    chrome.tabs.query({}, function (tabs) {
-        for (let i = 0; i < tabs.length; i++) {
-            if (!filter(tabs[i])) continue;
-            func(tabs[i]);
-            console.log(`Applying for ${tabs[i].id}`);
-        }
-    });
-}
-
-function filter(tab) {
-    if (!tab.id) return false;
-    if (!tab.url.startsWith('http://') && !tab.url.startsWith('https://')) return false;
-    if (tab.url.startsWith('https://chrome.google.com')) return false;
-    if (tab.url.includes('livechatinc')) return false;
-
-    return true
-}
-
-function show() {
-    console.log('showing tabs');
-    applyToTabs(show_tab, filter);
-}
-
-function hide() {
-    console.log('hiding tabs');
-    applyToTabs(hide_tab, filter);
-}
-
-function inject() {
-    applyToTabs(function (tab) {
-        chrome.tabs.executeScript(tab.id, {
-            file: 'src/extension/inject.js'
-        })
-    }, filter);
-}
-
-function show_tab(tab) {
-    chrome.storage.local.set({
-        'VC_SHOWN': true
-    }, function () {
-        chrome.tabs.executeScript(tab.id, {
-            file: 'src/extension/show-vc.js'
-        });
-        chrome.browserAction.setBadgeText({ text: 'On' });
-    });
-}
-
-function hide_tab(tab) {
-    chrome.storage.local.set({
-        'VC_SHOWN': false
-    }, function () {
-        chrome.tabs.executeScript(tab.id, {
-            file: 'src/extension/hide-vc.js'
-        });
-        chrome.browserAction.setBadgeText({ text: 'Off' });
-    });
-} */

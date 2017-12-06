@@ -1,3 +1,4 @@
+var chat_id;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 console.log('pop-up.js');
 
@@ -88,18 +89,15 @@ LC_API.on_after_load = function() {
     LC_API.open_chat_window();
     console.log('on after load happened, opened the chat window'); // But this runs?
 };
-
-/* Messages - not run since popup is not always open
-LC_API.on_message = function(data)
-{  
-    if(data.user_type == 'agent'){
-        chrome.runtime.sendMessage({ type: 'MESSAGE_RECEIVED' });
-    }
-};*/
+// Send visitor ID to background, so it can get pending chats and keep connection open
+LC_API.on_chat_started = function(data)
+{
+    chat_id = LC_API.get_chat_id();
+    chrome.runtime.sendMessage({ type: 'CHAT_ID', data: chat_id.toString() });
+}
 
 
 // Reset our unread message counter
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
-// Keep Livechat connection open
-chrome.runtime.sendMessage({ type: 'VISITOR_ENGAGED' });
+
