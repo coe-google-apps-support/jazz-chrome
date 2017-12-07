@@ -31,6 +31,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     window.__lc = window.__lc || {};
     window.__lc.license = 9242305;
     window.__lc.mute_csp_errors = true;
+    window.__lc.group = 3; // chrome extension group
     window.__lc.visitor = {
         name: userInfo.email,
         email: userInfo.email
