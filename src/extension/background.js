@@ -25,7 +25,15 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
-    VC_USER_EMAIL = userInfo.email;
+    VC_USER_EMAIL = "";
+
+    if (VC_USER_EMAIL == ""){
+        // User is not signed into chrome
+
+        // Don't load our livechat code
+        
+        return;
+    }
 
     // Set up livechat backend (so we can get notifications)
     window.__lc = window.__lc || {};
@@ -59,7 +67,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (timerOn != null){
             clearInterval(timerOn);
         }
-        setInterval(get_pending_chats, 5000); // execute every 5 seconds
+        // setInterval(get_pending_chats, 5000); // execute every 5 seconds
     }
     
     return true;

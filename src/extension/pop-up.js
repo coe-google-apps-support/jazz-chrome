@@ -6,6 +6,20 @@ console.log('pop-up.js');
 chrome.storage.local.get('VC_USER',
 function (value) {
 
+    var background = chrome.extension.getBackgroundPage();
+    if (background.VC_USER_EMAIL == ""){
+        // User is not signed into chrome
+
+        var errorMessage = document.createElement("div");
+        errorMessage.id = "not_signed_in";
+        errorMessage.innerHTML = "To use Jazz, please sign into Google Chrome."
+        errorMessage.style.cssText = "padding:5px;position:relative;width:300px;height:100%;z-index:100;text-align:center;font-size: x-large;";
+        var body = document.getElementsByTagName("body")[0];
+        document.body.appendChild(errorMessage, body);
+        
+        return;
+    }
+
     var LC_API = LC_API || {};
     LC_API.on_before_load = function() {
         LC_API.disable_sounds();
