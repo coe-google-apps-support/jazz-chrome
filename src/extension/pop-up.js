@@ -6,8 +6,7 @@ console.log('pop-up.js');
 chrome.storage.local.get('VC_USER',
 function (value) {
 
-    var background = chrome.extension.getBackgroundPage();
-    if (background.VC_USER_EMAIL == ""){
+    if (value.VC_USER.email == ""){
         // User is not signed into chrome
 
         var errorMessage = document.createElement("div");
