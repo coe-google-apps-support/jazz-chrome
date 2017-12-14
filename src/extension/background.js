@@ -5,7 +5,6 @@ if (!Jazz) {
 var visitor_id;
 var chat_id;
 var message_count = 0;
-var welcome_message = "Hello! Test123";
 var VC_USER_EMAIL;
 var timerOn;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
@@ -133,6 +132,7 @@ function reset_icon(){
 };
 
 function get_pending_chats() {
+// NOT BEING RUN CURRENTLY
 // send HTTP Request to get pending chats immediately
   var xhttp = new XMLHttpRequest();
   xhttp.open("GET", "https://api.livechatinc.com/visitors/"+visitor_id+"/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id, true);

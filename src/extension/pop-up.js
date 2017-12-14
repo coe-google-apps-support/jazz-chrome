@@ -4,7 +4,30 @@ if (!Jazz) {
 
 var chat_id;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
-console.log('pop-up.js');
+
+
+// Add mutationobserver code, to check if we have run into an error
+var observer = new MutationObserver(function(mutations) {
+	// For the sake of...observation...let's output the mutation to console to see how this all works
+	mutations.forEach(function(mutation) {
+		console.log(mutation.type);
+	});    
+});
+ 
+// Notify me of everything!
+var observerConfig = {
+	attributes: true, 
+	childList: true, 
+    characterData: true,
+    subtree: true
+};
+ 
+// Node, config
+// In this case we'll listen to all changes to body and child nodes
+var targetNode = document.body;
+observer.observe(targetNode, observerConfig);
+
+
 
 // Add livechat init code
 chrome.storage.local.get('VC_USER',
@@ -113,9 +136,18 @@ LC_API.on_chat_started = function(data)
     chat_id = LC_API.get_chat_id();
     chrome.runtime.sendMessage({ type: 'CHAT_ID', data: chat_id.toString() });
 }
+LC_API.on_chat_state_changed = function(data){
+    if (data.state == "offline"){
+        console.log('we are currently offline');
+        error_message();
+    }
+}
 
 
 // Reset our unread message counter
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
 
+function error_message(){
+    window.location.href = "error_page.html"; // Change html to our error page
+}
