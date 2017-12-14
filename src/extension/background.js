@@ -7,25 +7,17 @@ var timerOn;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
 
-/* Not needed right now 
-const visitorSDK = window.LivechatVisitorSDK.init({
-    license: 9242305,
-    group: 3,
-    });
-visitorSDK.on('chat_started', (chatData) => {
-    chat_id = chatData.chatId;
-    console.log("Chat started with ID: " + chat_id);
-})
-visitorSDK.on('new_message', (newMessage) => {
-    console.log("Received a message: " + newMessage.text + " from " + newMessage.authorId + " with chat ID: " + newMessage.chatId);
-    message_received();
-}); */
+chrome.identity.onSignInChanged.addListener(function (account, signedIn) {
+    // Reload the extension, to get current user profile
+    chrome.runtime.reload();
+});
 
-chrome.identity.getProfileUserInfo(function(userInfo) {
+
+chrome.identity.getProfileUserInfo(function (userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
-    VC_USER_EMAIL = userInfo;
+    VC_USER_EMAIL = userInfo.email;
 
     if (VC_USER_EMAIL == ""){
         // User is not signed into chrome
