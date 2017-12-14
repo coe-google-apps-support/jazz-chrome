@@ -25,7 +25,7 @@ chrome.identity.getProfileUserInfo(function(userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
     });
-    VC_USER_EMAIL = "";
+    VC_USER_EMAIL = userInfo;
 
     if (VC_USER_EMAIL == ""){
         // User is not signed into chrome
