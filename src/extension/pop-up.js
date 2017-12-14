@@ -1,3 +1,7 @@
+if (!Jazz) {
+    throw new Error('Jazz object is not defined.')
+}
+
 var chat_id;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 console.log('pop-up.js');
@@ -30,9 +34,9 @@ function (value) {
     };
 
     window.__lc = window.__lc || {};
-    window.__lc.license = 9242305;
+    window.__lc.license = Jazz.license;
     window.__lc.mute_csp_errors = true;
-    window.__lc.group = 3; // chrome extension group
+    window.__lc.group = Jazz.group; // chrome extension group
     window.__lc.visitor = {
         name: value.VC_USER.email,
         email: value.VC_USER.email

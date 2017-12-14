@@ -1,3 +1,7 @@
+if (!Jazz) {
+    throw new Error('Jazz object is not defined.')
+}
+
 var visitor_id;
 var chat_id;
 var message_count = 0;
@@ -29,9 +33,9 @@ chrome.identity.getProfileUserInfo(function (userInfo) {
 
     // Set up livechat backend (so we can get notifications)
     window.__lc = window.__lc || {};
-    window.__lc.license = 9242305;
+    window.__lc.license = Jazz.license;
     window.__lc.mute_csp_errors = true;
-    window.__lc.group = 3; // chrome extension group
+    window.__lc.group = Jazz.group; // chrome extension group
     window.__lc.visitor = {
         name: userInfo.email,
         email: userInfo.email
