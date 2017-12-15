@@ -10,8 +10,6 @@ catch (err) {
 var chat_id;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
-error_message();
-
 // Add mutationobserver code, to check if we have run into an error
 var observer = new MutationObserver(function(mutations) {
 	// For the sake of...observation...let's output the mutation to console to see how this all works
