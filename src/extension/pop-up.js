@@ -8,6 +8,7 @@ catch (err) {
 }
 
 var chat_id;
+var loaded = false;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
 // Add mutationobserver code, to check if we have run into an error
@@ -36,16 +37,11 @@ observer.observe(targetNode, observerConfig);
 // Add livechat init code
 chrome.storage.local.get('VC_USER',
 function (value) {
-
+    
     if (value.VC_USER.email == ""){
         // User is not signed into chrome
 
-        var errorMessage = document.createElement("div");
-        errorMessage.id = "not_signed_in";
-        errorMessage.innerHTML = "To use Jazz, please sign into Google Chrome."
-        errorMessage.style.cssText = "padding:5px;position:relative;width:300px;height:100%;z-index:100;text-align:center;font-size: x-large;";
-        var body = document.getElementsByTagName("body")[0];
-        document.body.appendChild(errorMessage, body);
+        error_message("To use Jazz, please sign into Google Chrome.");
         
         return;
     }
@@ -132,6 +128,7 @@ document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 var LC_API = LC_API || {};
 LC_API.on_after_load = function() {
     LC_API.open_chat_window();
+    loaded = true;
     console.log('on after load happened, opened the chat window'); // But this runs?
 };
 // Send visitor ID to background, so it can get pending chats and keep connection open
@@ -151,7 +148,24 @@ LC_API.on_chat_state_changed = function(data){
 // Reset our unread message counter
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
+// Check that livechat is running
+setTimeout(function(){if (loaded == false){error_message("Sorry, unable to connect to Jazz service. Please try again later.");}}, 4000);
 
 function error_message(error){
-    window.location.href = "error_page.html"; // Change html to our error page
+    // Only use this function when livechat cannot be reached, and no livechat code has been loaded
+    
+    // Add Jazz error message
+    console.log("Error has happened. Error = " + error);
+    var errorText = document.createTextNode(error);
+    var errorMessage = document.createElement("div");
+    errorMessage.id = "not_signed_in";
+    errorMessage.appendChild(errorText);
+    errorMessage.style.cssText = "padding:5px;position:relative;width:300px;height:100%;z-index:100;text-align:center;font-size: x-large;";
+    document.body.appendChild(errorMessage);
+
+    // Add Jazz image
+    var errorImage = document.createElement("IMG");
+    errorImage.src = "../../img/jazz-51px.png";
+    errorImage.id = "error_image";
+    document.body.appendChild(errorImage);
 }
