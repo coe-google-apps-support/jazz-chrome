@@ -1,10 +1,16 @@
-if (!Jazz) {
-    throw new Error('Jazz object is not defined.')
+try{
+    if (!Jazz) {
+        throw new Error('Jazz object is not defined.')
+    }
+}
+catch (err) {
+    error_message(err);
 }
 
 var chat_id;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
+error_message();
 
 // Add mutationobserver code, to check if we have run into an error
 var observer = new MutationObserver(function(mutations) {
@@ -148,6 +154,6 @@ LC_API.on_chat_state_changed = function(data){
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
 
-function error_message(){
+function error_message(error){
     window.location.href = "error_page.html"; // Change html to our error page
 }

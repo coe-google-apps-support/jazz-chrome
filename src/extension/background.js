@@ -1,5 +1,5 @@
 if (!Jazz) {
-    throw new Error('Jazz object is not defined.')
+    throw new Error('Jazz object is not defined.');
 }
 
 var visitor_id;
