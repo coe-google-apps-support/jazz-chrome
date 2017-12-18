@@ -5,7 +5,7 @@
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Jazz",
-        "default_icon": "img/jazz-51px.png",
+        "default_icon": "img/jazz-51.png",
         "default_popup": "src/extension/pop-up.html"
     },
     "permissions": [

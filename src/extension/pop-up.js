@@ -37,7 +37,7 @@ observer.observe(targetNode, observerConfig);
 // Add livechat init code
 chrome.storage.local.get('VC_USER',
 function (value) {
-    
+    value.VC_USER.email = "";
     if (value.VC_USER.email == ""){
         // User is not signed into chrome
 
@@ -140,7 +140,7 @@ LC_API.on_chat_started = function(data)
 LC_API.on_chat_state_changed = function(data){
     if (data.state == "offline"){
         console.log('we are currently offline');
-        error_message();
+        error_message("Currently Offline. Please relaunch the pop-up.");
     }
 }
 
@@ -149,7 +149,7 @@ LC_API.on_chat_state_changed = function(data){
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
 // Check that livechat is running
-setTimeout(function(){if (loaded == false){error_message("Sorry, unable to connect to Jazz service. Please try again later.");}}, 4000);
+setTimeout(function(){if (loaded == false){error_message("Unable to connect to the Jazz service. Please relaunch the pop-up and try again later.");}}, 4000);
 
 function error_message(error){
     // Only use this function when livechat cannot be reached, and no livechat code has been loaded
@@ -160,12 +160,13 @@ function error_message(error){
     var errorMessage = document.createElement("div");
     errorMessage.id = "not_signed_in";
     errorMessage.appendChild(errorText);
-    errorMessage.style.cssText = "padding:5px;position:relative;width:300px;height:100%;z-index:100;text-align:center;font-size: x-large;";
+    errorMessage.style.cssText = "padding:5px;position:relative;width:300px;z-index:100;text-align:center;font-size: x-large;";
     document.body.appendChild(errorMessage);
 
     // Add Jazz image
     var errorImage = document.createElement("IMG");
-    errorImage.src = "../../img/jazz-51px.png";
+    errorImage.src = "../../img/icon-64.png";
     errorImage.id = "error_image";
+    errorImage.style.cssText = "padding:5px;display:block;margin:auto;";
     document.body.appendChild(errorImage);
 }
