@@ -7,6 +7,7 @@ catch (err) {
     error_message(err);
 }
 
+
 var chat_id;
 var loaded = false;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
@@ -112,7 +113,7 @@ LC_API.on_after_load = function() {
 LC_API.on_chat_started = function(data)
 {
     chat_id = LC_API.get_chat_id();
-    chrome.runtime.sendMessage({ type: 'CHAT_ID', data: chat_id.toString() });
+    chrome.runtime.sendMessage({ type: 'CHAT_STARTED', data: chat_id.toString() });
 }
 LC_API.on_chat_state_changed = function(data){
     if (data.state == "offline"){

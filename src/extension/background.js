@@ -15,7 +15,6 @@ chrome.identity.onSignInChanged.addListener(function (account, signedIn) {
     chrome.runtime.reload();
 });
 
-
 chrome.identity.getProfileUserInfo(function (userInfo) {
     chrome.storage.local.set({
         'VC_USER': userInfo
@@ -42,6 +41,9 @@ chrome.identity.getProfileUserInfo(function (userInfo) {
     (function() {
         var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
         lc.src = tracking;
+        lc.addEventListener("load", function() {
+            console.log("livechat has fully loaded");
+        })
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
     })();
 
@@ -54,9 +56,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.type === 'RESET_COUNTER') {
         reset_icon();
     }
-    if (request.type === 'CHAT_ID') {
+    if (request.type === 'CHAT_STARTED') {
         console.log('Got Chat ID from popup, it is: ' + request.data);
         chat_id = request.data; // Is a string
+
+        // DOESN'T CURRENTLY WORK, REALLY MESSES UP BACKGROUND.HTML
+        // LOTS OF ERRORS
+        //LC_API = LC_API | {};
+        //LC_API.start_chat();
         
         // Now set the get_pending_chats REST API call to run
         if (timerOn != null){
@@ -112,10 +119,11 @@ LC_API.on_after_load = function()
   
 };
 
-// Get visitor ID
-//LC_API.on_after_load = function() {
-    
-//};
+LC_API.on_before_load = function() {
+    console.log("on before load");
+    //window.document.getElementById("livechat-badge").click(); //can't execute, content security
+    //LC_API.open_chat_window();
+};
 
 
 function message_received(){
@@ -148,3 +156,8 @@ function get_pending_chats() {
       }
   })
 }
+
+// Sketchy workaround. Simulate a click on the livechat button, hoping that it is loaded.
+setTimeout(function(){
+    window.document.getElementById("livechat-badge").click();
+}, 8000);
