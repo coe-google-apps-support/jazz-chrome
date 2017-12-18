@@ -15,7 +15,6 @@ const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 // Add livechat init code
 chrome.storage.local.get('VC_USER',
 function (value) {
-    value.VC_USER.email = "";
     if (value.VC_USER.email == ""){
         // User is not signed into chrome
 
