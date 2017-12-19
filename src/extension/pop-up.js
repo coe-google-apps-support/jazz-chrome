@@ -50,56 +50,7 @@ function (value) {
 
 });
 
-// Hiding livechat container at beginning
-// Eventually this could be moved to the livechat site, but this works for now
-let vsInitElement = document.createElement('style');
-vsInitElement.type = 'text/css';
-vsInitElement.id = 'vc-initial-style';
-vsInitElement.innerHTML = `    
-    #livechat-compact-container {
-        display: none !important;
-    }
 
-    #minimize { /* Doesn't do anything, need to figure out why */
-        display: none !important;
-    }
-
-    #livechat-full {
-        position: inherit !important;
-        display: inherit!important;
-        top: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        height: 500px !important;
-      }
-
-      #livechat-full-view {
-        left: -15px!important;
-        width: 107%!important;
-        top: -15px!important;
-        height: 110%!important;
-      }
-      
-      #wrapper {
-        padding-right: 0;
-        padding-top: 0;
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
-      }
-      
-      #title {
-        border-radius: 0;
-      }
-
-
-      /* @media 
-      (-webkit-min-device-pixel-ratio: 1.5) {
-        #livechat-full {
-          height: 300px;
-        }
-      } */
-`;
-document.getElementsByTagName('head')[0].appendChild(vsInitElement);
 
 
 // Make sure the chat window opens on launch

@@ -1,55 +1,89 @@
 /* Keeping track of css used */
+/* Don't use as an actual css file */
 
 
-/* css for a pop out window in google chrome */
-#livechat-compact-container {
-  display: none!important;
-}
-#livechat-full {
-  display: inherit!important;
-}
-#powered {
-  display: none;
+/* js for a pop out window in google chrome 
+  If injecting css in popout.js, use this! */
+
+  /* Hiding livechat container at beginning
+    Eventually this could be moved to the livechat site, but this works for now
+  let vsInitElement = document.createElement('style');
+  vsInitElement.type = 'text/css';
+  vsInitElement.id = 'vc-initial-style';
+  vsInitElement.innerHTML = `    
+  #livechat-compact-container {
+      display: none !important;
+  }
+  
+  #livechat-full {
+      position: inherit !important;
+      display: inherit!important;
+      top: 0 !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      height: 500px !important;
+  }
+  
+  #livechat-full-view {
+      left: -15px!important;
+      width: 107%!important;
+      top: -15px!important;
+      height: 110%!important;
+  }
+      
+  #wrapper {
+      padding-right: 0;
+      padding-top: 0;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+  }
+      
+  #title {
+      border-radius: 0;
+  }
+  
+  `;
+  document.getElementsByTagName('head')[0].appendChild(vsInitElement); */
+
+
+
+/* css used on the livechat website, so widget fills out chrome popup
+  If using css from livechat website, use this! */
+
+#close-chat {
+  display: none !important;
 }
 #minimize {
   display: none !important;
 }
-
-#livechat-full-view {
-  left: -15px!important;
-  width: 107.2%!important;
-  top: -15px!important;
-  height: 110%!important;
+#powered {
+  display: none;
 }
 
-/* taken from livechat website - makes the chat window fill out the popup */
+#livechat-compact-container {
+  display: none !important;
+}
+
 #livechat-full {
-  position: inherit;
+  position: inherit !important;
+  display: inherit!important;
   top: 0 !important;
   bottom: 0 !important;
   right: 0 !important;
   height: 500px !important;
 }
 
-#wrapper {
-  padding-right: 0;
-  padding-top: 0;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+.outline {
+  padding: 0px !important;
 }
 
-#title {
-  border-radius: 0;
+#footer {
+  display: none !important;
 }
 
-/* css for different device viewports
-
-@media 
-(-webkit-min-device-pixel-ratio: 1.5) {
-  #livechat-full {
-    height: 300px;
-  }
-} */
+#livechat-full-view {
+  height: 101%!important;
+}
 
 
 
