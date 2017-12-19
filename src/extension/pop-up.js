@@ -78,7 +78,7 @@ LC_API.on_chat_state_changed = function(data){
 chrome.runtime.sendMessage({ type: 'RESET_COUNTER' });
 
 // Check that livechat is running
-setTimeout(function(){if (loaded == false){error_message("Unable to connect to the Jazz service. Please relaunch the pop-up and try again later.");}}, 4000);
+setTimeout(function(){if (loaded == false){error_message("Unable to connect to the Jazz service. Please relaunch the pop-up and try again later.");}}, 8000);
 
 function error_message(error){
     // Only use this function when livechat cannot be reached, and no livechat code has been loaded
@@ -89,7 +89,7 @@ function error_message(error){
     var errorMessage = document.createElement("div");
     errorMessage.id = "not_signed_in";
     errorMessage.appendChild(errorText);
-    errorMessage.style.cssText = "padding:5px;position:relative;width:300px;z-index:100;text-align:center;font-size: x-large;";
+    errorMessage.style.cssText = "padding:5px;position:relative;width:100%;z-index:100;text-align:center;font-size: x-large;";
     document.body.appendChild(errorMessage);
 
     // Add Jazz image
