@@ -2,11 +2,8 @@ if (!Jazz) {
     throw new Error('Jazz object is not defined.');
 }
 
-var visitor_id;
-var chat_id;
 var message_count = 0;
 var VC_USER_EMAIL;
-var timerOn;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
 
@@ -65,11 +62,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         //LC_API = LC_API | {};
         //LC_API.start_chat();
         
-        // Now set the get_pending_chats REST API call to run
-        if (timerOn != null){
-            clearInterval(timerOn);
-        }
-        // setInterval(get_pending_chats, 5000); // execute every 5 seconds
     }
     
     return true;
@@ -77,8 +69,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 var LC_API = LC_API || {};
 // Messages
-LC_API.on_message = function(data)
-{  
+LC_API.on_message = function(data) {  
     console.log("we got a message!");
     if(data.user_type == 'agent'){
         message_received();
@@ -87,42 +78,18 @@ LC_API.on_message = function(data)
 
 // Get the Chat ID, after chat started
 // Only occurs if chat starts with background.js
-LC_API.on_after_load = function()
-{
-  //console.log('Chat started with agent: ' + data.agent_name);
-  //chat_id = LC_API.get_chat_id(); GETTING CHAT_ID FROM POPUP, NOT NEEDED
-  //console.log('Chat ID is: ' + chat_id);
+LC_API.on_after_load = function() {
+    LC_API.open_chat_window();
+    visitor_id = LC_API.get_visitor_id();
+    console.log("Visitor ID: " + visitor_id);
 
 
-  // Halfway implemented REST API code
-    
-  //visitor_id = Math.floor(Math.random() * 1000000000); // 1 billion
-  visitor_id = LC_API.get_visitor_id();
-  console.log(visitor_id);
-
-  // Start the chat
-  /* NOT NEEDED - If we're starting the chat through JS API in popup.js, and getting the chat_id
-    FUN FACT: CHAT_ID ISN'T THE SAME AS SECURED_SESSION_ID
-  $.ajax({
-      url: "https://api.livechatinc.com/visitors/"+visitor_id.toString()+"/chat/start?licence_id=9242305&welcome_message="+welcome_message+"&name="+VC_USER_EMAIL+"&email="+VC_USER_EMAIL+"&group=3",
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader("X-API-VERSION", "2")
-      }, success: function(data){
-          //process the JSON data etc
-          console.log(data);
-      }
-  }) */
-
-
-  chat_id = LC_API.get_chat_id();
-  console.log("get_chat_id() is " + chat_id);
-  
+    chat_id = LC_API.get_chat_id();
+    console.log("Chat ID: " + chat_id);
 };
 
 LC_API.on_before_load = function() {
     console.log("on before load");
-    //window.document.getElementById("livechat-badge").click(); //can't execute, content security
-    //LC_API.open_chat_window();
 };
 
 
@@ -138,24 +105,6 @@ function reset_icon(){
     chrome.browserAction.setBadgeText({text: ''});
     chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]}); //blank transparent background
 };
-
-function get_pending_chats() {
-// NOT BEING RUN CURRENTLY
-// send HTTP Request to get pending chats immediately
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "https://api.livechatinc.com/visitors/"+visitor_id+"/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id, true);
-  xhttp.setRequestHeader("Content-type", "application/json"); 
-
-  $.ajax({
-      url: "https://api.livechatinc.com/visitors/"+visitor_id.toString()+"/chat/get_pending_messages?licence_id="+9242305+"&secured_session_id="+chat_id.toString(),
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader("X-API-VERSION", "2")
-      }, success: function(data){
-          //process the JSON data etc
-          console.log(JSON.stringify(data));
-      }
-  })
-}
 
 // Sketchy workaround. Simulate a click on the livechat button, hoping that it is loaded.
 setTimeout(function(){
