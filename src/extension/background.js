@@ -67,6 +67,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
 });
 
+window.onload = function() {
+console.log('Setting LC_API callbacks');
 var LC_API = LC_API || {};
 // Messages
 LC_API.on_message = function(data) {  
@@ -90,7 +92,9 @@ LC_API.on_after_load = function() {
 
 LC_API.on_before_load = function() {
     console.log("on before load");
+    LC_API.disable_sounds();
 };
+}
 
 
 function message_received(){
@@ -108,5 +112,6 @@ function reset_icon(){
 
 // Sketchy workaround. Simulate a click on the livechat button, hoping that it is loaded.
 setTimeout(function(){
-    window.document.getElementById("livechat-badge").click();
+    window.document.getElementById("livechat-compact-view").click();
+    console.log('simulate click');
 }, 8000);

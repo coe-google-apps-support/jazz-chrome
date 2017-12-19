@@ -24,16 +24,6 @@ function (value) {
         return;
     }
 
-    var LC_API = LC_API || {};
-    LC_API.on_before_load = function() {
-        LC_API.disable_sounds();
-        console.log('on before load happened'); // is never run?
-    };
-
-    LC_API.on_after_load = function() {
-        console.log('on after load happened');
-    };
-
     window.__lc = window.__lc || {};
     window.__lc.license = Jazz.license;
     window.__lc.mute_csp_errors = true;
