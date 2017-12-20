@@ -81,6 +81,7 @@ LC_API.on_message = function(data) {
 // Get the Chat ID, after chat started
 // Only occurs if chat starts with background.js
 LC_API.on_after_load = function() {
+    LC_API.disable_sounds();
     LC_API.open_chat_window();
     visitor_id = LC_API.get_visitor_id();
     console.log("Visitor ID: " + visitor_id);
@@ -92,7 +93,6 @@ LC_API.on_after_load = function() {
 
 LC_API.on_before_load = function() {
     console.log("on before load");
-    LC_API.disable_sounds();
 };
 
 
