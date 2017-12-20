@@ -84,7 +84,7 @@ function error_message(error){
 
     // Add Jazz image
     var errorImage = document.createElement("IMG");
-    errorImage.src = "../../img/icon-64.png";
+    errorImage.src = "../../img/jazz-64.png";
     errorImage.id = "error_image";
     errorImage.style.cssText = "padding:5px;display:block;margin:auto;";
     document.body.appendChild(errorImage);
