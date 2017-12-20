@@ -46,6 +46,7 @@ function (value) {
 // Make sure the chat window opens on launch
 var LC_API = LC_API || {};
 LC_API.on_after_load = function() {
+    LC_API.disable_sounds();
     LC_API.open_chat_window();
     loaded = true;
     console.log('on after load happened, opened the chat window'); // But this runs?
