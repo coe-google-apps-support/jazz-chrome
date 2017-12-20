@@ -67,7 +67,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
 });
 
-window.onload = function() {
+
 console.log('Setting LC_API callbacks');
 var LC_API = LC_API || {};
 // Messages
@@ -94,7 +94,6 @@ LC_API.on_before_load = function() {
     console.log("on before load");
     LC_API.disable_sounds();
 };
-}
 
 
 function message_received(){
