@@ -79,7 +79,7 @@ function error_message(error){
     var errorMessage = document.createElement("div");
     errorMessage.id = "not_signed_in";
     errorMessage.appendChild(errorText);
-    errorMessage.style.cssText = "padding:5px;position:relative;width:100%;z-index:100;text-align:center;font-size: x-large;";
+    errorMessage.style.cssText = "padding:5px;position:relative;width:100%;min-width:300px;z-index:100;text-align:center;font-size: x-large;";
     document.body.appendChild(errorMessage);
 
     // Add Jazz image
