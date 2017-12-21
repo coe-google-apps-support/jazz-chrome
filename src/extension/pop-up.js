@@ -57,12 +57,6 @@ LC_API.on_chat_started = function(data)
     chat_id = LC_API.get_chat_id();
     chrome.runtime.sendMessage({ type: 'CHAT_STARTED', data: chat_id.toString() });
 }
-LC_API.on_chat_state_changed = function(data){
-    if (data.state == "offline"){
-        console.log('we are currently offline');
-        error_message("Currently Offline. Please relaunch the pop-up.");
-    }
-}
 
 
 // Reset our unread message counter
