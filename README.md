@@ -1,6 +1,6 @@
 # **City of Edmonton - VIP Chat** 
 
-## Steps to install this chrome extension:
+## **Installation Instructions:**
 
 1. Download Repo off of Github.
 2. Navigate to branch you are testing on.
@@ -11,20 +11,18 @@
 Click on the new icon in the Chrome extension bar, and a pop-up should open, connecting you to the Livechat service.
 
 
-### **To test connectivity issue:**
-Make sure you open the background.html developer console from chrome://extensions. To visually see when the chat is connected to background.js or not, notice the red "notification" badge pop-up when background.js is connected to a chat, and we receive a message from an agent.
+## **Important:**
+### Config.js
+To get the livechat service working, you need a js file "config.js" that defines a "Jazz" object, with properties license and group. This config.js file is located with popup.js and background.js.
 
-The notification appears when the agent starts the chat with a visitor (the visitor must have their extension popup open), and the agent sends messages to the visitor. Background.js is connected, and remains connected even when pop-up.js is closed and opened again. **Chat does not close**.
+For example: 
+```javascript
+const Jazz = {
+    license: LICENSE_HERE;
+    group: GROUP_HERE;
+}
+```
 
-The notification does not appear when the user messages the agent through their extension popup. Background.js should be connected, but somehow loses connection when the user opens up the pop-up. Once the pop-up is closed for about 20-30 seconds, **the chat closes**. 
-
-All of these statements can be confirmed by looking at the Google Chrome Developer Console.
-
-
-### **My thoughts**
-I'm pretty sure this has to do with background.js not starting a chat session, when popup does. This can be confirmed through using the LC_API.get_chat_id() method.
-
-For instance: When the agent starts the chat, background.js receives the session ping and starts the chat. It returns a chat ID through LC_API.get_chat_id(). This chat_id is the same as the one returned from popup.js (run LC_API.get_chat_id() in dev console of popup).
-
-When the user starts the chat, LC_API.get_chat_id() of background.js is still null. No chat session has been started, for some unknown reason.
+### CSS
+As well, if you want your popup to show correctly, use the CSS in the livechat.css file, and place it in the LiveChat custom css area, in LiveChat settings.
 

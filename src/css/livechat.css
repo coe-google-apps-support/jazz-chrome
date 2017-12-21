@@ -50,57 +50,39 @@
 /* css used on the livechat website, so widget fills out chrome popup
   If using css from livechat website, use this! */
 
-#close-chat {
-  display: none !important;
-}
-#minimize {
-  display: none !important;
-}
-#powered {
-  display: none;
-}
-
-#livechat-compact-container {
-  display: none !important;
-}
-
-#livechat-full {
-  position: inherit !important;
-  display: inherit!important;
-  top: 0 !important;
-  bottom: 0 !important;
-  right: 0 !important;
-  height: 500px !important;
-}
-
-.outline {
-  padding: 0px !important;
-}
-
-#footer {
-  display: none !important;
-}
-
-#livechat-full-view {
-  height: 101%!important;
-}
-
-
-
-/* css for a mobile device */
-@livechat-mobile {
-  #livechat-compact-container {
-    display: none!important;
-  }
-  #powered {
-    display: none;
-  }
-  #wrapper {
-    margin: 0px !important;
-    padding: 0px !important;
-    height: 100% !important;
+  #close-chat {
+    display: none !important;
   }
   #minimize {
     display: none !important;
   }
-}
+  
+  #powered {
+    display: none;
+  }
+  
+  #livechat-compact-container {
+      display: none !important;
+  }
+  
+  #livechat-full {
+      position: inherit !important;
+      display: inherit!important;
+      top: 0 !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      height: 500px !important;
+  }
+  
+  .outline {
+  padding: 0px !important;
+  }
+  
+  #footer {
+  display: none !important;
+  }
+  
+  #livechat-full-view {
+      height: 106%!important;
+  }
+
