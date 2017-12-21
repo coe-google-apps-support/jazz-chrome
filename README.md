@@ -1,4 +1,4 @@
-# **City of Edmonton - VIP Chat** 
+# **City of Edmonton - Jazz Chat** 
 
 ## **Installation Instructions:**
 
