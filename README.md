@@ -1,6 +1,6 @@
 # **Jazz - City of Edmonton Internal Application** 
 
-![logo](https://raw.github.com/coe-google-apps-support/jazz-chrome/master/img/large-tile.png)
+<img src="https://raw.github.com/coe-google-apps-support/jazz-chrome/master/img/large-tile.png" height="70%" width="70%" align="center">
 
 ## **Description**
 Jazz is an application wrapper for LiveChat's JS API widget, developed by Nathan Storm Kaefer and Jared Rewerts, for City of Edmonton internal executive employees. 
@@ -10,7 +10,7 @@ By navigating to the application, you are able to easily receive support from a 
 
 Chrome Extension example:
 
-![example](https://raw.github.com/coe-google-apps-support/jazz-chrome/master/img/example.PNG)
+<img src="https://raw.github.com/coe-google-apps-support/jazz-chrome/master/img/example.PNG" height="50%" width="50%">
 
 ## **Local Installation Instructions:**
 
