@@ -1,6 +1,18 @@
-# **City of Edmonton - Jazz Chat** 
+# **Jazz - City of Edmonton Internal Application** 
 
-## **Installation Instructions:**
+![logo](img/large-tile.png)
+
+## **Description**
+Jazz is an application wrapper for LiveChat's JS API widget, developed by Nathan Storm Kaefer and Jared Rewerts, for City of Edmonton internal executive employees. 
+It is in development for iOS, Android, and Chrome as an extension.
+
+By navigating to the application, you are able to easily receive support from a team of designated support agents, instantly.
+
+Chrome Extension example:
+
+![example](img/example.png)
+
+## **Local Installation Instructions:**
 
 1. Download Repo off of Github.
 2. Navigate to branch you are testing on.
@@ -11,7 +23,7 @@
 Click on the new icon in the Chrome extension bar, and a pop-up should open, connecting you to the Livechat service.
 
 
-## **Important:**
+### **Important:**
 ### Config.js
 To get the livechat service working, you need a js file "config.js" that defines a "Jazz" object, with properties license and group. This config.js file is located with popup.js and background.js.
 
