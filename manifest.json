@@ -1,13 +1,13 @@
 {
     "name": "Jazz",
     "description": "Start chatting with an IT professional now.",
-    "version": "14",
+    "version": "15",
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Jazz",
         "default_icon": {
-            "16": "img/jazz-notext-16.png",
-            "32": "img/jazz-notext-32.png"
+            "16": "img/circle-j-64.png",
+            "32": "img/circle-j-64.png"
         },
         "default_popup": "src/extension/pop-up.html"
     },
