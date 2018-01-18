@@ -1,7 +1,7 @@
 {
     "name": "Jazz",
-    "description": "Start chatting with an IT professional now.",
-    "version": "15",
+    "description": "A speedy, one-stop help desk, for all VIP clients at the City of Edmonton.",
+    "version": "16",
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Jazz",
