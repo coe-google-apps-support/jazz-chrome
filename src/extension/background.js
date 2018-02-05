@@ -6,6 +6,20 @@ var message_count = 0;
 var VC_USER_EMAIL;
 const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 
+chrome.browserAction.onClicked.addListener(function (activeTab) {
+    let rootURL = 'https://secure.livechatinc.com/licence/' + Jazz.license + '/open_chat.cgi?'
+    
+    chrome.storage.local.get('VC_USER', function(result) {
+        console.log(result)
+        let params = 
+            'groups=' + Jazz.group +
+            '&name=' + result.VC_USER.email + 
+            '&email=' + result.VC_USER.email
+
+        let newURL = rootURL + params;
+        chrome.tabs.create({ url: newURL });
+    });    
+});
 
 chrome.identity.onSignInChanged.addListener(function (account, signedIn) {
     // Reload the extension, to get current user profile
