@@ -21,7 +21,7 @@ chrome.browserAction.onClicked.addListener(function (activeTab) {
 
         let newURL = rootURL + params;
         chrome.tabs.create({ url: newURL });
-    });    
+    });
 });
 
 /**
@@ -81,6 +81,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
 });
 
+/**
+ * Handles forced updates
+ */
+chrome.runtime.onUpdateAvailable.addListener(function (details) {
+    chrome.runtime.reload();
+});
 
 ///// LiveChat API /////
 var LC_API = LC_API || {};
