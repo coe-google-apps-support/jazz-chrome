@@ -9,20 +9,20 @@ const tracking = 'https:' + 'cdn.livechatinc.com/tracking.js';
 /**
  * Temporary fix. Opens a standalone web page so our users don't lose their chats.
  */
-chrome.browserAction.onClicked.addListener(function (activeTab) {
-    let rootURL = 'https://secure.livechatinc.com/licence/' + Jazz.license + '/open_chat.cgi?'
+// chrome.browserAction.onClicked.addListener(function (activeTab) {
+//     let rootURL = 'https://secure.livechatinc.com/licence/' + Jazz.license + '/open_chat.cgi?'
     
-    chrome.storage.local.get('VC_USER', function(result) {
-        console.log(result)
-        let params = 
-            'groups=' + Jazz.group +
-            '&name=' + result.VC_USER.email + 
-            '&email=' + result.VC_USER.email
+//     chrome.storage.local.get('VC_USER', function(result) {
+//         console.log(result)
+//         let params = 
+//             'groups=' + Jazz.group +
+//             '&name=' + result.VC_USER.email + 
+//             '&email=' + result.VC_USER.email
 
-        let newURL = rootURL + params;
-        chrome.tabs.create({ url: newURL });
-    });
-});
+//         let newURL = rootURL + params;
+//         chrome.tabs.create({ url: newURL });
+//     });
+// });
 
 /**
  * If the user is changed, reload the extension.
@@ -44,24 +44,6 @@ chrome.identity.getProfileUserInfo(function (userInfo) {
         // User is not signed into chrome. Don't load our livechat code.
         return;
     }
-
-    // Set up livechat backend (so we can get notifications)
-    window.__lc = window.__lc || {};
-    window.__lc.license = Jazz.license;
-    window.__lc.mute_csp_errors = true;
-    window.__lc.group = Jazz.group; // chrome extension group
-    window.__lc.visitor = {
-        name: userInfo.email,
-        email: userInfo.email
-    };
-    (function() {
-        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-        lc.src = tracking;
-        lc.addEventListener("load", function() {
-            console.log("livechat has fully loaded");
-        })
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-    })();
 });
 
 /**
@@ -89,30 +71,30 @@ chrome.runtime.onUpdateAvailable.addListener(function (details) {
 });
 
 ///// LiveChat API /////
-var LC_API = LC_API || {};
-// Messages
-LC_API.on_message = function(data) {  
-    console.log("we got a message!");
-    if(data.user_type == 'agent'){
-        messageReceived();
-    }
-};
+// var LC_API = LC_API || {};
+// // Messages
+// LC_API.on_message = function(data) {  
+//     console.log("we got a message!");
+//     if(data.user_type == 'agent'){
+//         messageReceived();
+//     }
+// };
 
-/**
- * Gets info about the chat.
- * Get the Chat ID, after chat started
- * Only occurs if chat starts with background.js
- */
-LC_API.on_after_load = function() {
-    LC_API.disable_sounds();
-    LC_API.open_chat_window();
-    visitor_id = LC_API.get_visitor_id();
-    console.log("Visitor ID: " + visitor_id);
+// /**
+//  * Gets info about the chat.
+//  * Get the Chat ID, after chat started
+//  * Only occurs if chat starts with background.js
+//  */
+// LC_API.on_after_load = function() {
+//     LC_API.disable_sounds();
+//     LC_API.open_chat_window();
+//     visitor_id = LC_API.get_visitor_id();
+//     console.log("Visitor ID: " + visitor_id);
 
 
-    chat_id = LC_API.get_chat_id();
-    console.log("Chat ID: " + chat_id);
-};
+//     chat_id = LC_API.get_chat_id();
+//     console.log("Chat ID: " + chat_id);
+// };
 
 /**
  * Increments the # of messages badge.
