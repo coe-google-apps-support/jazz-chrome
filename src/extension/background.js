@@ -1,3 +1,6 @@
+/*global Jazz*/
+/*global chrome*/
+
 if (!Jazz) {
     throw new Error('Jazz config object is not defined.');
 }
