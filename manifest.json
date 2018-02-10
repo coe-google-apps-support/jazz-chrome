@@ -1,7 +1,7 @@
 {
     "name": "Jazz",
     "description": "A speedy, one-stop help desk, for all VIP clients at the City of Edmonton.",
-    "version": "18",
+    "version": "19",
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Jazz",
@@ -18,9 +18,7 @@
         "identity",
         "identity.email",
         "tabs",
-        "storage",
-        "http://*/*",
-        "https://*/*"
+        "storage"
     ],
     "background": {
         "page": "src/extension/background.html"
