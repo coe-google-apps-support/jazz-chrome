@@ -10,10 +10,12 @@
             "32": "img/circle-j-64.png"
         }
     },
-    "icons": { "16": "img/jazz-16.png",
+    "icons": {
+        "16": "img/jazz-16.png",
         "32": "img/jazz-32.png",
         "48": "img/jazz-48.png",
-       "128": "img/jazz-128.png" },
+        "128": "img/jazz-128.png"
+    },
     "permissions": [
         "identity",
         "identity.email",
@@ -21,11 +23,11 @@
         "storage"
     ],
     "background": {
-        "page": "src/extension/background.html"
+        "page": "src/js/background.html"
     },
     "web_accessible_resources": [
         "src/app/livechat.html",
-        "src/extension/tracking.js"
+        "src/js/tracking.js"
     ],
     "content_security_policy": "script-src 'self' https://*.opendns.com https://*.livechatinc.com; object-src 'self'"
 }
