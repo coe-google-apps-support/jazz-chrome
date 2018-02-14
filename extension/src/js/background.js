@@ -9,16 +9,10 @@ if (!Jazz) {
  * Temporary fix. Opens a standalone web page so our users don't lose their chats.
  */
 chrome.browserAction.onClicked.addListener(function (activeTab) {
-    let rootURL = 'https://secure.livechatinc.com/licence/' + Jazz.license + '/open_chat.cgi?'
-    
-    chrome.storage.local.get('VC_USER', function(result) {
-        let params = 
-            'groups=' + Jazz.group +
-            '&name=' + result.VC_USER.email + 
-            '&email=' + result.VC_USER.email
-
-        let newURL = rootURL + params;
-        chrome.tabs.create({ url: newURL });
+    chrome.storage.local.get('VC_USER', function (result) {
+        chrome.tabs.create({
+            url: chrome.extension.getURL('src/js/jazz.html')
+        });
     });
 });
 

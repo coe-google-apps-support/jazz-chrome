@@ -4,3 +4,4 @@ build
 *.pem
 *.zip
 config.js
+.DS_STORE
