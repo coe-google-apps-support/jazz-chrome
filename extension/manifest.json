@@ -1,7 +1,7 @@
 {
     "name": "Jazz",
     "description": "A speedy, one-stop help desk, for all VIP clients at the City of Edmonton.",
-    "version": "20",
+    "version": "21",
     "manifest_version": 2,
     "browser_action": {
         "default_title": "Jazz",
@@ -25,9 +25,5 @@
     "background": {
         "page": "src/js/background.html"
     },
-    "web_accessible_resources": [
-        "src/app/livechat.html",
-        "src/js/tracking.js"
-    ],
     "content_security_policy": "script-src 'self' https://*.opendns.com https://*.livechatinc.com; object-src 'self'"
 }
