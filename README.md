@@ -1,4 +1,5 @@
 # **Jazz - City of Edmonton Internal Application** 
+
 <img src="https://raw.github.com/coe-google-apps-support/jazz-chrome/master/extension/img/large-tile.png" height="70%" width="70%" align="center">
 
 ## **Description**
